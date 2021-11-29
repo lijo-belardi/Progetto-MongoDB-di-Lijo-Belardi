@@ -14,4 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
+from . import views
+
+app_name = 'user'
 # Go to --> Authentication Views in django documentation
+
+urlpatterns = [
+    path("", views.login_request, name="login"),
+    path("register/", views.register_request, name="register"),
+]
