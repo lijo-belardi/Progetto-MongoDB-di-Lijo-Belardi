@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-
 {% load crispy_forms_tags %}
+
+<!-- message's section - START -->
+<div class="container">
+  {% if messages %}
+  {% for message in messages %}
+  <strong>{{ message }}</strong>
+  {% endfor %}
+  {% endif %}
+</div>
+<!-- message's section - END -->
 
 <!--Login-->
 <div class="container text-center py-5">
