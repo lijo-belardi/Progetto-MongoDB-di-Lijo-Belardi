@@ -22,6 +22,6 @@ app_name = 'user'
 urlpatterns = [
     path("", views.login_request, name="login"),
     path("register/", views.register_request, name="register"),
-    path("logout", views.logout_request, name="logout"),
+    path("logout/", views.logout_request, name="logout"),
     path("profile/", views.profile, name="profile"),
 ]
