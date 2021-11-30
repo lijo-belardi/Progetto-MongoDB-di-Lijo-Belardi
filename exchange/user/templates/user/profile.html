@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
+    <h3>Nome utente: {{user.username}}</h3>
+    <h3>Email: {{user.email}}</h3>
 
-<h3>Nome utente: {{user.username}}</h3>
-<h3>Email: {{user.email}}</h3>
+    <br><br><a class="btn btn-sm btn-outline-secondary" href="{% url 'app:homepage' %}">Back Home</a>
 
-<br><br><a class="btn btn-sm btn-outline-secondary" href="{% url 'app:homepage' %}">Back Home</a>
-
-
+</div>
 
 {% endblock %}
