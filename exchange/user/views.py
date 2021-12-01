@@ -3,15 +3,25 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
+# From this app
 from .forms import NewUserForm
-
+# Other apps import
+from app.models import Wallet
+# Other imports
+import random
 def register_request(request):
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            new_user = Wallet(
+                user=user,
+                btc_wallet=random.randrange(1, 11),
+            )
+            new_user.usd_wallet = new_user.btc_wallet * float(40000)
+            new_user.save()
             login(request, user)
-            messages.success(request, "Registration successful." )
+            messages.success(request, f"Registration successful. You recived {new_user.btc_wallet} bitcoin for the Registration." )
             return redirect("/")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
