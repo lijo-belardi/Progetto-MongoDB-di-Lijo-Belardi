@@ -5,6 +5,9 @@
     <h3>Email: {{user.email}}</h3>
 
     <br><br><a class="btn btn-sm btn-outline-secondary" href="{% url 'app:homepage' %}">Back Home</a>
+    {% if user.is_superuser %}
+    <a class="btn btn-sm btn-outline-primary" href="http://127.0.0.1:8000/admin/">Django admin's site</a>
+    {% endif %}
 
 </div>
 
