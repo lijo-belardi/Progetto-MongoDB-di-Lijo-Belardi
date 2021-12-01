@@ -9,6 +9,8 @@ from .forms import NewUserForm
 from app.models import Wallet
 # Other imports
 import random
+
+
 def register_request(request):
     if request.method == "POST":
         form = NewUserForm(request.POST)
