@@ -6,6 +6,15 @@
     {% endblock _head %}
 </head>
 <body>
+
+<!-- Navbar -->
+{% if user.is_authenticated %}
+{% block _navbar %}
+{% include "partials/_navbar.html" %}
+{% endblock _navbar %}
+{% endif %}
+
+
 {% block content %}{% endblock %}
 
 </body>
