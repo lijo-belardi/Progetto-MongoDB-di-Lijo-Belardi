@@ -24,8 +24,15 @@ class Wallet(models.Model):
         return text
 
 
-class Order(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    datetime = models.DateTimeField(auto_now_add=True)
-    price = models.FloatField()
-    quantity = models.FloatField()
+class OrderToSell(models.Model):
+    price = models.FloatField(default=0)
+    quantity = models.FloatField(default=0)
+    publish_on = models.DateTimeField(auto_now_add=True)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class OrderToBuy(models.Model):
+    price = models.FloatField(default=0)
+    quantity = models.FloatField(default=0)
+    publish_on = models.DateTimeField(auto_now_add=True)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
