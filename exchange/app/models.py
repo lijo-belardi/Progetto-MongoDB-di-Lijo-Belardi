@@ -3,11 +3,13 @@ from djongo.models.fields import ObjectIdField, Field
 from django.contrib.auth.models import User
 from django.conf import settings
 
+
 class Profile(models.Model):
     _id = ObjectIdField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ips = models.Field(default=[])
     subprofile = models.Field(default={})
+
 
 class Wallet(models.Model):
     _id = ObjectIdField()
