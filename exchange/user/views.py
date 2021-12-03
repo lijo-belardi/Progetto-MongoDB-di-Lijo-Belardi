@@ -1,8 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 # From this app
 from .forms import NewUserForm
 # Other apps import
@@ -29,6 +31,7 @@ def register_request(request):
     form = NewUserForm()
     return render(request=request, template_name="user/register.html", context={"register_form":form})
 
+
 def login_request(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
@@ -47,11 +50,25 @@ def login_request(request):
     form = AuthenticationForm()
     return render(request=request, template_name="user/login.html", context={"login_form":form})
 
+
 def logout_request(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
     return redirect("user:login")
 
+
 @login_required()
 def profile(request):
     return render(request, template_name="user/profile.html")
+
+
+# Password change
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChangeForm
+    template_name = "registration/password_change.html"
+    success_url = reverse_lazy("user:password-success")
+
+
+# Password success function
+def password_success(request):
+    return render(request, "registration/password_success.html", {})

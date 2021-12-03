@@ -1,7 +1,9 @@
 <div class="card"><!-- first card - Profile -->
     <div class="container"><!-- main container -->
-        <h3>Profile</h3>
-        <table class=" table" ><!-- table -->
+        <div style="margin: 10px;">
+            <h3>Profile</h3>
+        </div>
+        <table class=" table"><!-- table -->
             <thead>
             <tr>
                 <th>Username</th>
@@ -19,7 +21,7 @@
         </table><!-- table -->
 
         <a class="btn btn-sm btn-outline-primary">Edit profile</a>
-        <a class="btn btn-sm btn-outline-primary" href="">Change password</a>
+        <a class="btn btn-sm btn-outline-primary" href="{% url 'user:password-change' %}">Change password</a>
         <br><br>
     </div><!-- main container -->
 </div><!-- first card - Profile -->
