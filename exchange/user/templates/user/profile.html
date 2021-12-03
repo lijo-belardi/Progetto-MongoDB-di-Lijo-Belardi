@@ -2,21 +2,23 @@
 {% block content %}
 
 <div class="container"><br>
-    <div class="row">
-        <div class="col card"><!-- first card - Profile -->
-            <h3>Profile</h3>
-            <h5>Nome utente: {{user.username}}</h5>
-            <h5>Email: {{user.email}}</h5>
-        </div><!-- first card - Profile -->
+    <!-- Personal information - first card -->
+    {% block _profile_first_card %}
+    {% include "user/partials/_profile_first_card.html" %}
+    {% endblock _profile_first_card %}
 
-        <div class="col card"><!-- second card - Actions-->
+    <br><br>
+
+
+    <div class="card"><!-- second card - Actions-->
+        <div class="container">
             <h3 >Actions</h3>
             <a class="btn btn-sm btn-outline-secondary" href="{% url 'app:homepage' %}">Back Home</a>
             {% if user.is_superuser %}
             <br><a class="btn btn-sm btn-outline-primary" href="http://127.0.0.1:8000/admin/">Django admin's site</a><br>
             {% endif %}
-        </div><!-- second card - Actions-->
-    </div>
+        </div>
+    </div><!-- second card - Actions-->
 </div>
 
 {% endblock %}
