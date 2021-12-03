@@ -3,9 +3,9 @@
 
 <div class="container"><br>
     <!-- Personal information - first card -->
-    {% block _profile_first_card %}
-    {% include "user/partials/_profile_first_card.html" %}
-    {% endblock _profile_first_card %}
+    {% block _profile_personal_information %}
+    {% include "user/partials/_profile_personal_information.html" %}
+    {% endblock _profile_personal_information %}
 
     <br><br>
 
@@ -15,7 +15,7 @@
             <h3 >Actions</h3>
             <a class="btn btn-sm btn-outline-secondary" href="{% url 'app:homepage' %}">Back Home</a>
             {% if user.is_superuser %}
-            <br><a class="btn btn-sm btn-outline-primary" href="http://127.0.0.1:8000/admin/">Django admin's site</a><br>
+            <br><br><a class="btn btn-sm btn-outline-primary" href="http://127.0.0.1:8000/admin/">Django admin's site</a><br>
             {% endif %}
         </div><br>
     </div><!-- second card - Actions-->
