@@ -3,7 +3,7 @@ from .models import Profile, Wallet, OrderToBuy, OrderToSell
 
 
 class AdminProfile(admin.ModelAdmin):
-    list_display = ["user", "_id"]
+    list_display = ["user", "_id", "ip_address", "last_login"]
 
 
 class AdminOrderToBuy(admin.ModelAdmin):
@@ -17,7 +17,14 @@ class AdminOrderToSell(admin.ModelAdmin):
 
 
 class AdminWallet(admin.ModelAdmin):
-    list_display = ("user", "_id", "btc_wallet", "usd_wallet", "btc_balance", "usd_balance", "btc_available", "usd_available")
+    list_display = ("user",
+                    "_id",
+                    "btc_wallet",
+                    "usd_wallet",
+                    "btc_balance",
+                    "usd_balance",
+                    "btc_available",
+                    "usd_available")
 
 
 admin.site.register(Profile, AdminProfile)

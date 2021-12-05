@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from djongo.models.fields import ObjectIdField, Field
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -9,6 +10,8 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ips = models.Field(default=[])
     subprofile = models.Field(default={})
+    ip_address = models.CharField(max_length=150, blank=True, null=True)
+    last_login = models.DateTimeField(default=timezone.now)
 
 
 class Wallet(models.Model):

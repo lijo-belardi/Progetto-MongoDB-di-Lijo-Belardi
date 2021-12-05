@@ -16,6 +16,8 @@
             <a class="btn btn-sm btn-outline-secondary" href="{% url 'app:homepage' %}">Back Home</a>
             {% if user.is_superuser %}
             <br><br><a class="btn btn-sm btn-outline-primary" href="http://127.0.0.1:8000/admin/">Django admin's site</a><br>
+            <br><a class="btn btn-sm btn-outline-primary" href="{% url 'user:ip-check' %}">Ip check</a><br>
+
             {% endif %}
         </div><br>
     </div><!-- second card - Actions-->

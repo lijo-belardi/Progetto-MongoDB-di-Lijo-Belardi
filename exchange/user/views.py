@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
@@ -8,9 +9,21 @@ from django.urls import reverse_lazy
 # From this app
 from .forms import NewUserForm
 # Other apps import
-from app.models import Wallet
+from app.models import Wallet, Profile
 # Other imports
 import random
+
+
+def get_ip_address(request):
+    try:
+        x_forward = request.META.get("HTTP_X_FORWARDED_FOR")
+        if x_forward:
+            ip = x_forward.split(",")[0]
+        else:
+            ip = request.META.get("REMOTE_ADDR")
+    except:
+        ip = ""
+    return ip
 
 
 def register_request(request):
@@ -33,6 +46,8 @@ def register_request(request):
 
 
 def login_request(request):
+    ip_address = get_ip_address(request)
+
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -41,14 +56,35 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"You are now logged in as {username}.")
-                return redirect("app:homepage")
+                try:
+                    user_info = Profile.objects.get(user=user)
+                    user_info.last_login = timezone.now()
+                except:
+                    user_info = Profile.objects.create(user=user)
+                    user_info.last_login = timezone.now()
+                user_info.save()
+                ip_address = get_ip_address(request)
+                if ip_address != user_info.ip_address:
+                    user_info.ip_address = ip_address
+                    user_info.save()
+                    return redirect(f"user:ip-check")
+
+                else:
+                    messages.info(request, f"You are now logged in as {username}.")
+                    return redirect("app:homepage")
             else:
                 messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
     return render(request=request, template_name="user/login.html", context={"login_form":form})
+
+
+# Ip_check_view
+@login_required()
+def ip_check_view(request):
+    context = {}
+    return render(request, 'user/ip_check.html', context)
 
 
 def logout_request(request):
@@ -59,7 +95,7 @@ def logout_request(request):
 
 @login_required()
 def profile(request):
-    return render(request, template_name="user/profile.html")
+    return render(request, "user/profile.html")
 
 
 # Password change
