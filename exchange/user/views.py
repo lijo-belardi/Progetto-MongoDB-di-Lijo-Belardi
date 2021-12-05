@@ -67,7 +67,7 @@ def login_request(request):
                 if ip_address != user_info.ip_address:
                     user_info.ip_address = ip_address
                     user_info.save()
-                    return redirect(f"user:ip-check")
+                    return redirect("user:ip-check")
 
                 else:
                     messages.info(request, f"You are now logged in as {username}.")
@@ -77,7 +77,7 @@ def login_request(request):
         else:
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
-    return render(request=request, template_name="user/login.html", context={"login_form":form})
+    return render(request=request, template_name="user/login.html", context={"login_form": form})
 
 
 # Ip_check_view
