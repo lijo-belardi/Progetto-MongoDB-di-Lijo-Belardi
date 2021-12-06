@@ -41,7 +41,7 @@ def register_request(request):
             new_user.usd_wallet = new_user.btc_wallet * currency
             new_user.save()
             login(request, user)
-            messages.success(request, f"Registration successful. You recived {new_user.btc_wallet} bitcoin for the Registration." )
+            messages.success(request, f"Registration successful. You recived {new_user.btc_wallet} bitcoin for the Registration.")
             return redirect("/")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
