@@ -10,8 +10,5 @@ def homepage_view(request):
     return render(request, "homepage.html", {"currency": currency})
 
 
-
-
-
 def publish_order_to_buy(request):
     ...

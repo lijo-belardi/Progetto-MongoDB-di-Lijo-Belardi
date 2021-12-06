@@ -30,6 +30,7 @@ class Wallet(models.Model):
 
 
 class OrderToSell(models.Model):
+    _id = ObjectIdField()
     price = models.FloatField(default=0)
     quantity = models.FloatField(default=0)
     publish_on = models.DateTimeField(auto_now_add=True)
@@ -37,6 +38,7 @@ class OrderToSell(models.Model):
 
 
 class OrderToBuy(models.Model):
+    _id = ObjectIdField()
     price = models.FloatField(default=0)
     quantity = models.FloatField(default=0)
     publish_on = models.DateTimeField(auto_now_add=True)

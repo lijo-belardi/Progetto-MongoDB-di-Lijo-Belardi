@@ -10,6 +10,7 @@ from django.urls import reverse_lazy
 from .forms import NewUserForm
 # Other apps import
 from app.models import Wallet, Profile
+from app.market import Market
 # Other imports
 import random
 
@@ -27,6 +28,8 @@ def get_ip_address(request):
 
 
 def register_request(request):
+    data = Market()
+    currency = data.updated_data()
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
@@ -35,7 +38,7 @@ def register_request(request):
                 user=user,
                 btc_wallet=random.randrange(1, 11),
             )
-            new_user.usd_wallet = new_user.btc_wallet * float(40000)
+            new_user.usd_wallet = new_user.btc_wallet * currency
             new_user.save()
             login(request, user)
             messages.success(request, f"Registration successful. You recived {new_user.btc_wallet} bitcoin for the Registration." )
@@ -93,9 +96,11 @@ def logout_request(request):
 
 
 @login_required()
-def profile(request):
-    user_profile = get_object_or_404(Profile)
-    return render(request, "user/profile.html", {"user_profile": user_profile})
+def profile(request, id):
+    user_profile = get_object_or_404(Profile, user_id=id)
+    wallet = get_object_or_404(Wallet, user_id=id)
+
+    return render(request, "user/profile.html", {"user_profile": user_profile, "wallet": wallet})
 
 
 # Password change
