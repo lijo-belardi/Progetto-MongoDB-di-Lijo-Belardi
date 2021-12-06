@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container"><br>
+<div class="container"><br><!-- main container -->
     <!-- Personal information - first card -->
     {% block _profile_personal_information %}
     {% include "user/partials/_profile_personal_information.html" %}
@@ -24,6 +24,23 @@
             {% endif %}
         </div><br>
     </div><!-- second card - Actions-->
-</div>
 
-{% endblock %}
+    <br><br>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col card">
+                BTC
+            </div>
+
+
+            <div class="col card">
+                USD
+            </div>
+        </div>
+
+
+    </div><!-- main container -->
+
+    {% endblock %}
