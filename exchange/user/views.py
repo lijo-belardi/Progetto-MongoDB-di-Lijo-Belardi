@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.urls import reverse_lazy
 # From this app
@@ -68,7 +68,6 @@ def login_request(request):
                     user_info.ip_address = ip_address
                     user_info.save()
                     return redirect("user:ip-check")
-
                 else:
                     messages.info(request, f"You are now logged in as {username}.")
                     return redirect("app:homepage")
@@ -95,7 +94,8 @@ def logout_request(request):
 
 @login_required()
 def profile(request):
-    return render(request, "user/profile.html")
+    user_profile = get_object_or_404(Profile)
+    return render(request, "user/profile.html", {"user_profile": user_profile})
 
 
 # Password change
