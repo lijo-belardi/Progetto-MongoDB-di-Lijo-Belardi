@@ -1,9 +1,11 @@
-<div class="card"><!-- first card - Profile -->
+<div class="card rounded shadow"><!-- first card - Profile -->
     <div class="container"><!-- main container -->
         <div style="margin: 10px;">
             <h3>Profile</h3>
         </div>
-        <table class=" table"><!-- table -->
+
+        <!-- table - personal information -->
+        <table class=" table">
             <thead>
             <tr>
                 <th>Username</th>
@@ -21,7 +23,8 @@
                 <td>{{ user_profile.ip_address }}</td>
             </tr>
             </tbody>
-        </table><!-- table -->
+        </table><!-- table - personal information -->
+
 
         <a class="btn btn-sm btn-outline-primary">Edit profile</a>
         <a class="btn btn-sm btn-outline-primary" href="{% url 'user:password-change' %}">Change password</a>
