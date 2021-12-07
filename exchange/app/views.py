@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .forms import PublishOrderToBuy
+# From this app
 from .market import Market
+# Other apps import
+# Other imports
+
 
 @login_required()
 def homepage_view(request):
