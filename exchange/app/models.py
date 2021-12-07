@@ -19,13 +19,13 @@ class Wallet(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     btc_wallet = models.FloatField(default=0)
     usd_wallet = models.FloatField(default=0)
-    btc_balance = models.FloatField()
-    usd_balance = models.FloatField()
-    btc_available = models.FloatField()
-    usd_available = models.FloatField()
+    btc_balance = models.FloatField(default=0)
+    usd_balance = models.FloatField(default=0)
+    btc_available = models.FloatField(default=0)
+    usd_available = models.FloatField(default=0)
 
     def __str__(self):
-        text = f'Wallet n. {self._id}. User owner: {self.user}'
+        text = f"Wallet n. {self._id}. User owner: {self.user}"
         return text
 
 
