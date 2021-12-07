@@ -1,26 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<br>
 <!-- Card IP Check -->
 <div class="container"><!-- Main container -->
-  <div class="col s12 m7">
-    <h3 class="white-text" style="margin: 5px;">Warning!</h3>
-    <div class="card horizontal">
-      <div class="card-stacked">
-        <div class="card-content">
-          <p class="flow-text" style="margin: 10px;"> Your actual ip address is different from the last login. We suggest you to change password.</p>
-          <div class="card-action">
-            {% if not request.GET.next %}
-            <a class="btn btn-outline-success btn-sm" href="{% url 'app:homepage' %}" name="next" style="margin: 10px;">Go to home</a>
-            {% elif request.GET.next == '' %}
-            <a class="btn btn-outline-success btn-sm" href="{% url 'app:homepage' %}" name="next" style="margin: 10px;">Go to home</a>
-            {% else %}
-            <a class="btn btn-outline-success btn-sm" href="{% url 'app:homepage' %}" name="next" style="margin: 10px;">Go to home</a>
-            {% endif %}
-            <a class="btn btn-outline-danger btn-sm" href="{% url 'user:password-change' %}" style="margin: 10px;">Change password</a>
-          </div>
-        </div>
-      </div>
+  <div class="card rounded shadow">
+
+    <div class="container">
+      <h3 class="white-text" style="margin: 10px;">Warning!</h3>
+      <p class="flow-text" style="margin: 10px;"> Your actual ip address is different from the last login. We suggest you to change password.</p>
+      <br>
+
+      <div class="card-action"><!-- actions -->
+        {% if not request.GET.next %}
+        <a class="btn btn-outline-success btn-sm" href="{% url 'app:homepage' %}" name="next" style="margin: 10px;">Go to home</a>
+        {% elif request.GET.next == '' %}
+        <a class="btn btn-outline-success btn-sm" href="{% url 'app:homepage' %}" name="next" style="margin: 10px;">Go to home</a>
+        {% else %}
+        <a class="btn btn-outline-success btn-sm" href="{% url 'app:homepage' %}" name="next" style="margin: 10px;">Go to home</a>
+        {% endif %}
+        <a class="btn btn-outline-danger btn-sm" href="{% url 'user:password-change' %}" style="margin: 10px;">Change password</a>
+      </div><!--  actions -->
+      <br>
+
     </div>
   </div>
 </div><!-- Main container -->
