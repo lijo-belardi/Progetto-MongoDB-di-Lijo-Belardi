@@ -34,12 +34,21 @@ def register_request(request):
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+
+            # Profile's user creation
+            new_user_profile = Profile(
+                user=user,
+            )
+            new_user_profile.save()
+
+            # Wallet's user creation
             new_user = Wallet(
                 user=user,
                 btc_wallet=random.randrange(1, 11),
             )
             new_user.usd_wallet = new_user.btc_wallet * currency
             new_user.save()
+
             login(request, user)
             messages.success(request, f"Registration successful. You recived {new_user.btc_wallet} bitcoin for the Registration.")
             return redirect("/")
