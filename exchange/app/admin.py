@@ -7,12 +7,12 @@ class AdminProfile(admin.ModelAdmin):
 
 
 class AdminOrderToBuy(admin.ModelAdmin):
-    list_display = ["price", "quantity"]
+    list_display = ["user", "status", "price", "quantity"]
     sortable_by = ["price"]
 
 
 class AdminOrderToSell(admin.ModelAdmin):
-    list_display = ["price", "quantity"]
+    list_display = ["user", "status", "price", "quantity"]
     sortable_by = ["price"]
 
 
@@ -22,9 +22,7 @@ class AdminWallet(admin.ModelAdmin):
                     "btc_wallet",
                     "usd_wallet",
                     "btc_balance",
-                    "usd_balance",
-                    "btc_available",
-                    "usd_available")
+                    "usd_balance")
 
 
 admin.site.register(Profile, AdminProfile)

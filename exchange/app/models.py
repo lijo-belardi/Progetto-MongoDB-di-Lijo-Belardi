@@ -21,27 +21,29 @@ class Wallet(models.Model):
     usd_wallet = models.FloatField(default=0)
     btc_balance = models.FloatField(default=0)
     usd_balance = models.FloatField(default=0)
-    btc_available = models.FloatField(default=0)
-    usd_available = models.FloatField(default=0)
 
     def __str__(self):
         text = f"Wallet n. {self._id}. User owner: {self.user}"
         return text
 
 
-class OrderToSell(models.Model):
-    _id = ObjectIdField()
-    status = models.CharField(max_length=5)
-    price = models.FloatField(default=0)
-    quantity = models.FloatField(default=0)
-    publish_on = models.DateTimeField(auto_now_add=True)
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
 class OrderToBuy(models.Model):
     _id = ObjectIdField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(max_length=5)
+    price = models.FloatField(default=0)
+    quantity = models.FloatField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    publish_on = models.DateTimeField(auto_now_add=True)
+
+
+class OrderToSell(models.Model):
+    _id = ObjectIdField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=5)
     price = models.FloatField(default=0)
     quantity = models.FloatField(default=0)
     publish_on = models.DateTimeField(auto_now_add=True)
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
