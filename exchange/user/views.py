@@ -27,6 +27,13 @@ def get_ip_address(request):
     return ip
 
 
+# Ip_check_view
+@login_required()
+def ip_check_view(request):
+    context = {}
+    return render(request, 'user/ip_check.html', context)
+
+
 def register_request(request):
     data = Market()
     currency = data.updated_data()
@@ -35,22 +42,26 @@ def register_request(request):
         if form.is_valid():
             user = form.save()
 
-            # Profile's user creation
+            # Profile creation
             new_user_profile = Profile(
                 user=user,
             )
             new_user_profile.save()
 
-            # Wallet's user creation
-            new_user = Wallet(
+            # Wallet creation
+            new_user_wallet = Wallet(
                 user=user,
                 btc_wallet=random.randrange(1, 11),
             )
-            new_user.usd_wallet = new_user.btc_wallet * currency
-            new_user.save()
+            new_user_wallet.usd_wallet = new_user_wallet.btc_wallet * currency
+
+            # Wallet balance (USD and BTC)
+            new_user_wallet.usd_balance = new_user_wallet.usd_wallet
+            new_user_wallet.btc_balance = new_user_wallet.btc_wallet
+            new_user_wallet.save()
 
             login(request, user)
-            messages.success(request, f"Registration successful. You recived {new_user.btc_wallet} bitcoin for the Registration.")
+            messages.success(request, f"Registration successful. You recived {new_user_wallet.btc_wallet} bitcoin for the Registration.")
             return redirect("/")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
@@ -91,11 +102,7 @@ def login_request(request):
     return render(request=request, template_name="user/login.html", context={"login_form": form})
 
 
-# Ip_check_view
-@login_required()
-def ip_check_view(request):
-    context = {}
-    return render(request, 'user/ip_check.html', context)
+
 
 
 def logout_request(request):
