@@ -4,36 +4,21 @@
 
 <br>
 
-<div class="container">
+<div class="container"><!-- main container -->
 
-    <h2 class=" font-weight-bold border-bottom"><strong > PURCHASE PAGE</strong></h2>
+    <!-- Title -->
+    {% block _buy_title %}
+    {% include "app/partials/_buy_title.html" %}
+    {% endblock _buy_title %}
 
-    <!-- Wallet_Table -->
-    <div class="card" id="table" style="background:#CD853F">
-        <div class=" card-content">
-            <div class="card-action center-align flow-text white-text">
-                <h4 class=" text:center color:white"><strong>Your Wallet</strong></h4>
-            </div>
-            <table class=" table table-dark " >
-                <thead>
-                <tr class="white-text flow-text">
-                    <th>Bitcoins available</th>
-                    <th>Initial Bitcoins</th>
-                    <th>Dollars available</th>
-                    <th>Initial dollars</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{{ profile_pocket.btc_amount|floatformat:8 }}</td>
-                    <td>{{ profile_pocket.btc_balance|floatformat:8 }}</td>
-                    <td>{{ profile_pocket.usd_amount|floatformat:4 }}$</td>
-                    <td>{{ profile_pocket.usd_balance|floatformat:4 }}$</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <br>
+
+    <!-- Wallet's information -->
+    {% block _buy_wallet %}
+    {% include "app/partials/_buy_wallet.html" %}
+    {% endblock _buy_wallet %}
+
+    <br>
     <!-- Messages -->
     {% for message in messages %}
     {% if 'success' in message.tags %}
@@ -171,7 +156,7 @@
             </div>
         </div>
     </div>
-</div>
+</div><!-- main container -->
 
 
 
