@@ -14,15 +14,9 @@
 
 <div class="container"><!-- main container -->
 
-    <div class="card rounded shadow bg-dark bg-gradient text-white"><!-- card for bitcoin's info -->
-
-
-        <div class="container">
-            <h3>Bitcoin price: {{currency}} $</h3>
-        </div>
-
-
-    </div><!-- card for bitcoin's info -->
+    {% block _homepage_bitcoin %}
+    {% include "partials/_homepage_bitcoin.html" %}
+    {% endblock _homepage_bitcoin %}
 
     <br><br>
 
