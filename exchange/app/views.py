@@ -17,7 +17,7 @@ def homepage_view(request):
     currency = data.updated_data()
     return render(request, "homepage.html", {"currency": currency})
 
-
+'''
 @login_required()
 def buy_order_view(request):
     data = Market()
@@ -123,8 +123,10 @@ def buy_order_view(request):
     profile_pocket = Profile.objects.get(user=request.user)
     # Getting latest trade price
 
-    return render(request, 'app/page_to_buy.html', {'form': form,
+    return render(request, 'app/buy.html', {'form': form,
+                                                 'purchase_orders_list': purchase_orders_list,
                                                  'sale_orders_list': sale_orders_list,
                                                  'profile_pocket': profile_pocket,
                                                  'currency': currency
                                                  })
+'''
