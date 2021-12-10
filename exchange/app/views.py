@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 # From this app
 from .models import Profile, Wallet, OrderToBuy, OrderToSell
@@ -16,6 +16,18 @@ def homepage_view(request):
     data = Market()
     currency = data.updated_data()
     return render(request, "homepage.html", {"currency": currency})
+
+
+def sell_order_view(request, id):
+    wallet = get_object_or_404(Wallet, user_id=id)
+    return render(request, "app/sell.html", {"wallet": wallet})
+
+
+
+
+
+
+
 
 '''
 @login_required()
