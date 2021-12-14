@@ -20,6 +20,6 @@ app_name = "app"
 urlpatterns = [
     path("", views.homepage_view, name="homepage"),
     path("exchange/sell/<int:id>/", views.sell_order_view, name="sell"),
-    #path('exchange/buy/', views.buy_order_view, name='buy'),
+    path('exchange/buy/<int:id>/', views.buy_order_view, name='buy'),
 
 ]

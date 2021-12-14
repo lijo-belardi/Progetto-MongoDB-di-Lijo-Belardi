@@ -24,7 +24,7 @@ urlpatterns = [
     path("register/", views.register_request, name="register"),
     path("logout/", views.logout_request, name="logout"),
     path("profile/<int:id>/", views.profile, name="profile"),
-    path('ip_check/', views.ip_check_view, name='ip-check'),
-    path("password_change/", views.PasswordsChangeView.as_view(), name="password-change"),
-    path("password_success/", views.password_success, name="password-success"),
+    path('ip-check/', views.ip_check_view, name='ip-check'),
+    path("password-change/", views.PasswordsChangeView.as_view(), name="password-change"),
+    path("password-success/", views.password_success, name="password-success"),
 ]
