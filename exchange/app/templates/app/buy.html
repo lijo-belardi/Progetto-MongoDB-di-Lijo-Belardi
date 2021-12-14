@@ -14,11 +14,12 @@
     <br>
 
     <!-- Wallet's information -->
-    {% block _buy_wallet %}
-    {% include "app/partials/_buy_wallet.html" %}
-    {% endblock _buy_wallet %}
+    {% block _buy_wallet_info %}
+    {% include "app/partials/_buy_wallet_info.html" %}
+    {% endblock _buy_wallet_info %}
 
     <br>
+
     <!-- Messages -->
     {% for message in messages %}
     {% if 'success' in message.tags %}
@@ -34,17 +35,12 @@
     </div>
     {% endfor %}
 
-    <!-- Tabs -->
-    <div class=" card-content center">
-        <h5 class="">{{ a }}</h5>
-    </div>
-
     <section class="container section scrollspy" id="services">
         <div class="container row">
 
             <div class="col s12 l12">
 
-                <!-- Card: Buy Order -->
+                <!-- Card: Buy Order - form -->
                 <div class="container" id="buy-card" >
                     <div class="card text-white  mb-3" style="background:#CD853F">
                         <div class="card-action center-align flow-text white-text">
@@ -61,101 +57,49 @@
                         </div>
 
                     </div>
-                </div>
-
-
-
+                </div><!-- Card: Buy Order - form -->
             </div>
         </div>
     </section>
 
-    <!-- Order Tables -->
-    <div class="col s12 l12" id="cards">
-        <div class="container">
-            <div class="row">
+
+    <!--- Order's book -->
+    <div class="card rounded shadow" style="background-color: #E7C99C">
+        <div class="card-body"><!--- card body -->
+            <h3 class="card-title">Order book</h3>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text">Hi {{ wallet.user }}, this is order book.</p>
+
+            <!-- table  -->
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity (BTC)</th>
+                    <th>Value (USD)</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in buy_orders_list %}
+                <tr>
+                    <td>{{order.user}}</td>
+                    <td>{{ order.quantity|floatformat:2}} BTC</td>
+                    <td>{{ order.price|floatformat:2}}$</td>
+                    <td>{{order.created}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+
+            </table><!-- table -->
+
+            <a href="{% url 'user:profile' user.id %}" class="card-link">Profile</a>
+            <a href="{% url 'app:homepage' %}" class="card-link">Home</a>
+        </div><!--- card body -->
+    </div><!--- Order's book -->
 
 
 
-                <!-- Buy orders -->
-                <div class="col s12 m6">
-                    <div class="card text-white  mb-3" style="background:#CD853F">
-                        <div class="card-action center-align flow-text white-text">
-                            BID - BUY ORDERS
-
-                        </div>
-                        <div class="card-content">
-                            <table class="table table-dark">
-                                <thead>
-                                <tr>
-                                    <th>Quantity (BTC)</th>
-                                    <th>Value (USD)</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for order in purchase_orders_list %}
-                                <tr>
-                                    <td>{{ order.quantity }}</td>
-                                    <td>{{ order.price }}</td>
-                                    <td>{% if order.profile.user.id == user_wallet.user.id %}
-
-                                        <a class="btn red lighten-2 white-text" href="{% url 'app:delete'%}" name="delete" >
-
-                                            delete
-                                        </a>
-
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                            <div class="container">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sell orders -->
-                <div class="col s12 m6">
-                    <div class="card text-white  mb-3" style="background:#CD853F">
-                        <div class="card-action center-align flow-text white-text">
-                            ASK - SELL ORDERS
-
-                        </div>
-                        <div class="card-content">
-                            <table class="table table-dark">
-                                <thead>
-                                <tr>
-                                    <th>Quantity (BTC)</th>
-                                    <th>Value (USD)</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for order in  sale_orders_list %}
-                                <tr>
-                                    <td>{{ order.quantity }}</td>
-                                    <td>{{ order.price }}</td>
-                                    <td>{% if order.user.id == user_wallet.user.id %}
-                                        <a class="btn red lighten-2 white-text" href="{% url 'app:delete'%}" name="delete" >
-
-                                            delete
-                                        </a>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </table>
-                            <div class="container">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
 </div><!-- main container -->
 
 
