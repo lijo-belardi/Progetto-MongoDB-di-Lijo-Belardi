@@ -20,16 +20,9 @@
 
     <br><br>
 
-    <div class="card rounded shadow" style="background-color: #E7C99C"><!--- Wallet info - main card -->
-        <div class="card-body"><!--- Wallet info - card body -->
-            <h3 class="card-title">Order's list</h3>
-            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text">List of all order</p>
-
-            <a href="{% url 'user:profile' user.id %}" class="card-link">Profile</a>
-            <a href="{% url 'app:sell' user.id %}" class="card-link">Want to sell?</a>
-        </div><!--- Wallet info - card body -->
-    </div><!--- Wallet info - main card -->
+    {% block _orders %}
+    {% include "app/partials/_orders.html" %}
+    {% endblock _orders %}
 
 
 </div><!-- main container -->
