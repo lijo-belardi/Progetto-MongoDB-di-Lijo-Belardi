@@ -1,0 +1,34 @@
+<!--- Order's book -->
+<div class="card rounded shadow" style="background-color: #E7C99C">
+    <div class="card-body"><!--- card body -->
+        <h3 class="card-title">Order book</h3>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">This is the order's book.</p>
+
+        <!-- table  -->
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity (BTC)</th>
+                <th>Value (USD)</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in buy_orders_list %}
+            <tr>
+                <td>{{order.user}}</td>
+                <td>{{ order.quantity|floatformat:2}} BTC</td>
+                <td>{{ order.price|floatformat:2}}$</td>
+                <td>{{order.created}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table><!-- table -->
+
+        <a href="{% url 'user:profile' user.id %}" class="card-link">Profile</a>
+        <a href="{% url 'app:homepage' %}" class="card-link">Home</a>
+    </div><!--- card body -->
+</div><!--- Order's book -->
