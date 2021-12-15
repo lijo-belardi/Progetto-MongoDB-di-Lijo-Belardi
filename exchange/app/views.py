@@ -15,15 +15,18 @@ from .market import Market
 def homepage_view(request):
     data = Market()
     currency = data.updated_data()
-    return render(request, "homepage.html", {"currency": currency})
+    buy_orders_list = OrderToBuy.objects.filter(status='open').order_by('created')
+    return render(request, "homepage.html", {"currency": currency, "buy_orders_list": buy_orders_list})
 
 
+@login_required()
 def sell_order_view(request, id):
     wallet = get_object_or_404(Wallet, user_id=id)
 
     return render(request, "app/sell.html", {"wallet": wallet})
 
 
+@login_required()
 def buy_order_view(request, id):
     wallet = get_object_or_404(Wallet, user_id=id)
     buy_orders_list = OrderToBuy.objects.filter(status='open').order_by('created')
