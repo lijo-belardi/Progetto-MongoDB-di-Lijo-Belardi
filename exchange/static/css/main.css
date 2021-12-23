@@ -6,6 +6,11 @@
 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
+
+
+
+/* Login - start */
+
 /* BASIC */
 
 html {
@@ -263,9 +268,20 @@ input[type=text]:placeholder {
     outline: none;
 }
 
+/* Login - end */
+
+
+
+
+
+
+
+
+
 /* Mobile Styles */
 /* todo fare test */
 /* todo aggiornare con login */
+/* todo aggiornare con register */
 @media only screen and (max-width: 400px) {
   body {
     background-color: #F09A9D; /* Red  todo eliminare e aggiornare con il colore scelto */
@@ -275,6 +291,7 @@ input[type=text]:placeholder {
 /* Tablet Styles */
 /* todo fare test */
 /* todo aggiornare con login */
+/* todo aggiornare con register */
 @media only screen and (min-width: 401px) and (max-width: 960px) {
   body {
     background-color: #F5CF8E; /* Yellow todo eliminare e aggiornare con il colore scelto */
