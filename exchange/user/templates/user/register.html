@@ -1,17 +1,48 @@
 {% extends "base.html" %}
-{% block content %} 
+{% block content %}
 
-{% load crispy_forms_tags %}         
+{% load crispy_forms_tags %}
+<!-- todo migliorare il form (vedi "internet is hard") -->
+<!-- todo risolvere campo "username" -->
+<!-- todo risolvere campo "first name" -->
+<!-- todo risolvere campo "last name" -->
+<!-- todo risolvere puntini dell'elenco puntato -->
+<!-- todo risolvere grandezza suggerimenti completamento campi -->
 
-<!--Register--> 
-<div class="container py-5">
-	<h1>Register</h1>
-	<form method="POST">
-		{% csrf_token %}
-		{{ register_form|crispy }}                    
-		<button class="btn btn-primary rounded shadow" type="submit">Register</button>
-	</form>
-	<p class="text-center">If you already have an account, <a href="{% url 'user:login' %}">login</a> instead.</p>
-</div>
+
+<!--wrapper fadeInDown-->
+<div class="wrapper fadeInDown">
+	<!-- formContent -->
+	<div id="formContent">
+		<!-- Tabs Titles -->
+		<h2 class="inactive underlineHover"> <a href="{% url 'user:login' %}">Sign In </a></h2>
+		<h2 class="active">Sign Up </h2>
+
+		<!-- Registration Form -->
+		<form method="POST">
+			{% csrf_token %}
+			{{ register_form|crispy }}
+			<input type="submit" class="fadeIn fourth" value="Register">
+		</form>
+
+		<!-- message's section - START -->
+		<div class="container"> <!-- TODO migliorare il messaggio -->
+			{% if messages %}
+			{% for message in messages %}
+			<strong>{{ message }}</strong>
+			{% endfor %}
+			{% endif %}
+		</div>
+		<!-- message's section - END -->
+
+
+		<!-- Account -->
+		<div id="formFooter">
+			<p class="underLineHover">If you already have an account, <a href="{% url 'user:login' %}">login</a> instead.</p>
+		</div>
+
+	</div>	<!-- formContent -->
+</div><!--wrapper fadeInDown-->
+
 
 {% endblock %}
