@@ -45,6 +45,7 @@ class OrderToSell(models.Model):
     price = models.FloatField(default=0)
     quantity = models.FloatField(default=0)
     publish_on = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
 

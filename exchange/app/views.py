@@ -21,9 +21,44 @@ def homepage_view(request):
 
 @login_required()
 def sell_order_view(request, id):
+    data = Market()
+    currency = data.updated_data()
+    buy_orders_list = OrderToBuy.objects.filter(status='open').order_by('created')
+    sell_orders_list = OrderToSell.objects.filter(status='open').order_by('created')
     wallet = get_object_or_404(Wallet, user_id=id)
 
-    return render(request, "app/sell.html", {"wallet": wallet})
+    if request.method == 'POST':
+        form = OrderForm(request.POST or None)
+        if form.is_valid():
+            status = 'open'
+            price = form.cleaned_data.get('price')
+            quantity = form.cleaned_data.get('quantity')
+            # Checking wallet availability.
+            profile_wallet = Wallet.objects.get(user=request.user)
+            if price < 0.0:
+                messages.error(request, 'Cannot put a price lower than 0')
+                return redirect('app:sell')
+            if quantity < 0.0:
+                messages.error(request, 'Cannot put a quantity lower than 0')
+                return redirect('app:sell')
+            if profile_wallet.btc_wallet >= quantity:
+                profile_wallet.btc_wallet -= quantity
+                profile_wallet.save()
+                # Order creation
+                new_sell_order = OrderToSell.objects.create(user=request.user,
+                                                            status=status,
+                                                            price=price,
+                                                            quantity=quantity,
+                                                            modified=timezone.now())
+                messages.success(request,
+                                 f'Your sales order of {new_sell_order.quantity} BTC for {new_sell_order.price}  is successfully added to the Order Book! || Status:{new_sell_order.status}')
+        else:
+            messages.error(request, 'Order can not have negative values!')
+
+    return render(request, "app/sell.html", {"wallet": wallet,
+                                             "currency": currency,
+                                             "sell_orders_list": sell_orders_list,
+                                             "buy_orders_list": buy_orders_list})
 
 
 @login_required()
@@ -55,10 +90,10 @@ def buy_order_view(request, id):
                 profile_wallet.save()
                 # Order creation
                 new_buy_order = OrderToBuy.objects.create(user=request.user,
-                                                             status=status,
-                                                             price=price,
-                                                             quantity=quantity,
-                                                             modified=timezone.now())
+                                                          status=status,
+                                                          price=price,
+                                                          quantity=quantity,
+                                                          modified=timezone.now())
 
                 messages.success(request,
                                  f'Your  purchase order of {new_buy_order.quantity} BTC for {new_buy_order.price}  is successfully added to the Order Book! || Status: {new_buy_order.status}')
@@ -66,5 +101,8 @@ def buy_order_view(request, id):
             messages.error(request, 'Order can not have negative values!')
 
     form = OrderForm()
-    return render(request, "app/buy.html", {"wallet": wallet, "form": form, "buy_orders_list": buy_orders_list, "sell_orders_list": sell_orders_list})
+    return render(request, "app/buy.html", {"wallet": wallet,
+                                            "form": form,
+                                            "buy_orders_list": buy_orders_list,
+                                            "sell_orders_list": sell_orders_list})
 
