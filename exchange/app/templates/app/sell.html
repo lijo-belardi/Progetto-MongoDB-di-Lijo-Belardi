@@ -31,23 +31,37 @@
             <a href="{% url 'user:profile' user.id %}" class="card-link">Profile</a>
             <a href="{% url 'app:homepage' %}" class="card-link">Home</a>
         </div><!--- Wallet info - card body -->
-    </div><!--- Wallet info - main card -->
+    </div>
+    <!--- Wallet info - main card -->
 
 
     <br>
+
     <!-- card for form -->
     <div class="card rounded shadow" style="background-color: #E7C99C">
-        <div class="card-body"><!-- card body -->
-
+        <!-- card body -->
+        <div class="card-body">
             <h3 class="card-title">Form</h3>
             <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
             <p class="card-text">Description</p>
             <div class="card-content">
+
+
+
+                <!-- form -->
                 <form action="." method="POST" >
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <div class="form-div">
+
+                    </div>
                     <input class="btn black  " type="submit" value="Submit buy order" name="buy" style="margin: 10px;"/>
                 </form>
+                <!-- form -->
+
+
+
+
             </div>
             <a href="{% url 'user:profile' user.id %}" class="card-link">Profile</a>
             <a href="{% url 'app:homepage' %}" class="card-link">Home</a>
