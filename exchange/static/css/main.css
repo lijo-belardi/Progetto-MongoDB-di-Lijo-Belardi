@@ -101,11 +101,23 @@ h2.active {
   border-bottom: 2px solid #5fbae9;
 }
 
+/* Other elements */
 
+ul {
+ margin: 20px;
+ padding: 0px 32px 0px 32px;
+ list-style-type:none;
+}
 
-/* FORM TYPOGRAPHY*/
+label {
+ margin-top: 20px;
+}
 
-input[type=button], input[type=submit], input[type=reset]  {
+/* FORM TYPOGRAPHY and INPUT*/
+
+input[type=button],
+input[type=submit],
+input[type=reset] {
   background-color: #56baed;
   border: none;
   color: white;
@@ -127,11 +139,17 @@ input[type=button], input[type=submit], input[type=reset]  {
   transition: all 0.3s ease-in-out;
 }
 
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+input[type=button]:hover,
+input[type=submit]:hover,
+input[type=reset]:hover  {
   background-color: #39ace7;
 }
 
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+input[type=button]:active,
+input[type=submit]:active,
+input[type=reset]:active,
+input[type=password]:active,
+input[type=email]:active {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
@@ -139,7 +157,9 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=text] {
+input[type=text],
+input[type=password],
+input[type=email] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -160,15 +180,23 @@ input[type=text] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+input[type=text]:focus,
+input[type=password]:focus,
+ input[type=email]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+input[type=text]:placeholder,
+input[type=password]:placeholder,
+input[type=email]:placeholder {
   color: #cccccc;
 }
 
+#hint_id_username,
+#hint_id_password2 {
+ padding: 5px;
+}
 
 
 /* ANIMATIONS */

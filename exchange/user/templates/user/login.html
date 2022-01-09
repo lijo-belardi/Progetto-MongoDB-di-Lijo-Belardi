@@ -8,28 +8,29 @@
     <h2 class="active"> Sign In </h2>
     <h2 class="inactive underlineHover"> <a href="/register">Sign Up</a> </h2>
 
-    <!-- Login Form -->
-    <form method="POST">
-      {% csrf_token %}
-      {{ login_form|crispy }}
-      <input type="submit" class="fadeIn fourth" value="Log In">
-    </form>
+      <!-- Login Form -->
+      <form method="POST">
+        {% csrf_token %}
+        {{ login_form|crispy }}
+        <input type="submit" class="fadeIn fourth" value="Log In">
+      </form>
 
-    <!-- message's section - START -->
-    <div class="container"> <!-- TODO migliorare il messaggio -->
-      {% if messages %}
-      {% for message in messages %}
-      <strong>{{ message }}</strong>
-      {% endfor %}
-      {% endif %}
+      <!-- message's section - START -->
+      <div class="container"> <!-- TODO migliorare il messaggio -->
+        {% if messages %}
+        {% for message in messages %}
+        <strong>{{ message }}</strong>
+        {% endfor %}
+        {% endif %}
+      </div>
+      <!-- message's section - END -->
+
+
+      <!-- Remind Password -->
+      <div id="formFooter">
+        <a class="underlineHover" href="#">Forgot Password?</a>
+      </div>
     </div>
-    <!-- message's section - END -->
+  </div><!-- Login -->
 
-
-    <!-- Remind Password -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
-  </div>
-</div><!-- Login -->
 {% endblock %}
