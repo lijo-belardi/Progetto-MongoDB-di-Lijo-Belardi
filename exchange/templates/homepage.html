@@ -14,17 +14,21 @@
 
 <div class="container"><!-- main container -->
 
-    {% block _homepage_bitcoin %}
-    {% include "partials/_homepage_bitcoin.html" %}
-    {% endblock _homepage_bitcoin %}
+    <div class="row g-5">
+        <div class="col-md-8">
+            {% block _orders %}
+            {% include "app/partials/_orders.html" %}
+            {% endblock _orders %}
+        </div>
+        <!-- TODO lezione "floats" impostazione "clear" per il footer -->
 
-    <br><br>
+        <div class="col-md-4">
+            {% block _homepage_bitcoin %}
+            {% include "partials/_homepage_bitcoin.html" %}
+            {% endblock _homepage_bitcoin %}
 
-    {% block _orders %}
-    {% include "app/partials/_orders.html" %}
-    {% endblock _orders %}
-
-<!-- TODO lezione "floats" impostazione "clear" per il footer -->
+        </div>
+    </div>
 
 </div><!-- main container -->
 

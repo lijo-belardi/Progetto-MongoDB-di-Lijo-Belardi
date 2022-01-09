@@ -9,14 +9,26 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif; /* todo vedere web typography */
   height: 100vh;
-  background-color: #56baed;
+  background-color: #78b5d4;
 }
 
-footer {
-  background-color:  #56baed;
+nav {
+ background-color: #dcf1e5;
 }
+
+#bitcoin-price, #ps-info {
+ background-color: #dcf1e5;
+}
+
+
+footer {
+  background-color: #dce8f1;
+  position: bottom;
+  margin-top: 10%;
+}
+
 
 a {
   color: #92badd;
@@ -270,45 +282,20 @@ input[type=text]:placeholder {
 /* Login - end */
 
 
+/* X-Small devices (portrait phones, less than 576px)
+// No media query for `xs` since this is the default in Bootstrap */
 
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) { ... }
 
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) { ... }
 
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) { ... }
 
+/* X-Large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) { ... }
 
-
-
-/* Mobile Styles */
-/* todo fare test */
-/* todo aggiornare con login */
-/* todo aggiornare con register */
-@media only screen and (max-width: 400px) {
-  body {
-    background-color: #F09A9D; /* Red  todo eliminare e aggiornare con il colore scelto */
-  }
-}
-
-/* Tablet Styles */
-/* todo fare test */
-/* todo aggiornare con login */
-/* todo aggiornare con register */
-@media only screen and (min-width: 401px) and (max-width: 960px) {
-  body {
-    background-color: #F5CF8E; /* Yellow todo eliminare e aggiornare con il colore scelto */
-  }
-
-}
-
-/* Desktop Styles */
-@media only screen and (min-width: 961px) {
-  body {
-    background-color: #56baed; /* Blue todo eliminare e aggiornare con il colore scelto */
-  }
-}
-
-
-
-
-
-
-
-
+/* XX-Large devices (larger desktops, 1400px and up)*/*/
+@media (min-width: 1400px) { ... }
