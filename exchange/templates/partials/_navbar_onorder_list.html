@@ -2,10 +2,11 @@
 
     <!-- Dropdown - user -->
     <li class="nav-item dropdown">
+        <!-- TODO fixare lo span (non si vede) -->
         <span class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{user.username}}
         </span>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #E9D6BA">
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{% url 'user:profile' user.id %}">Profile</a></li>
             <li><a class="dropdown-item" href="#">Settings</a></li>
             <li><hr class="dropdown-divider"></li>
