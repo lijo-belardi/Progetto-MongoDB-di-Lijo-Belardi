@@ -9,8 +9,8 @@
 
 :root {
  --main-bg-color: #78b5d4;
- --second-bg-color: #dcf1e5;
- --third-bg-color: #dce8f1;
+ --second-bg-color: #dce8f1;
+ --third-bg-color: #dcf1e5;
 }
 
 body {
@@ -18,27 +18,27 @@ body {
   height: 100vh;
   background-color: var(--main-bg-color);
 }
+
 /******* Navigation Styles *******/
 nav {
  background-color: var(--second-bg-color);
 }
 /******* Footer Styles *******/
 footer {
-  background-color: var(--third-bg-color);;
+  background-color: var(--second-bg-color);
   position: bottom;
   margin-top: 10%;
 }
 
-#footer-contact {
+.footer__contact {
  margin-bottom: 5px;
 }
 
-/* BASIC - END */
-
-#bitcoin-price,
-#ps-info {
- background-color: #dcf1e5;
+/******* Card Styles *******/
+.card {
+ background-color: var(--second-bg-color);
 }
+
 
 a {
   color: #92badd;
@@ -96,9 +96,6 @@ h2 {
     background-color: #FFFFFF;
 }
 
-.card rounded shadow {
-    background-color: #cccccc;
-}
 
 /* TABS */
 
