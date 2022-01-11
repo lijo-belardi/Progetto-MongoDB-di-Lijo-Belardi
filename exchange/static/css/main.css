@@ -1,34 +1,44 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-/* BASIC */
-
+/******* General Styles *******/
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+:root {
+ --main-bg-color: #78b5d4;
+ --second-bg-color: #dcf1e5;
+ --third-bg-color: #dce8f1;
+}
+
 body {
   font-family: "Roboto", sans-serif; /* todo vedere web typography */
   height: 100vh;
-  background-color: #78b5d4;
+  background-color: var(--main-bg-color);
 }
-
+/******* Navigation Styles *******/
 nav {
- background-color: #dcf1e5;
+ background-color: var(--second-bg-color);
 }
-
-#bitcoin-price, #ps-info {
- background-color: #dcf1e5;
-}
-
-
+/******* Footer Styles *******/
 footer {
-  background-color: #dce8f1;
+  background-color: var(--third-bg-color);;
   position: bottom;
   margin-top: 10%;
 }
 
+#footer-contact {
+ margin-bottom: 5px;
+}
+
+/* BASIC - END */
+
+#bitcoin-price,
+#ps-info {
+ background-color: #dcf1e5;
+}
 
 a {
   color: #92badd;
@@ -102,12 +112,6 @@ h2.active {
 }
 
 /* Other elements */
-
-ul {
- margin: 20px;
- padding: 0px 32px 0px 32px;
- list-style-type:none;
-}
 
 label {
  margin-top: 20px;
@@ -325,5 +329,5 @@ input[type=email]:placeholder {
 /* X-Large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) { ... }
 
-/* XX-Large devices (larger desktops, 1400px and up)*/*/
+/* XX-Large devices (larger desktops, 1400px and up) */
 @media (min-width: 1400px) { ... }
