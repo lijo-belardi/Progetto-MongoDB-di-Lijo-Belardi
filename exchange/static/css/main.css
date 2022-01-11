@@ -7,10 +7,15 @@
   box-sizing: border-box;
 }
 
+*:focus {
+    outline: none;
+}
+
 :root {
  --main-bg-color: #78b5d4;
  --second-bg-color: #dce8f1;
  --third-bg-color: #dcf1e5;
+ --card-bg-color: #dce8f1;
 }
 
 body {
@@ -18,27 +23,6 @@ body {
   height: 100vh;
   background-color: var(--main-bg-color);
 }
-
-/******* Navigation Styles *******/
-nav {
- background-color: var(--second-bg-color);
-}
-/******* Footer Styles *******/
-footer {
-  background-color: var(--second-bg-color);
-  position: bottom;
-  margin-top: 10%;
-}
-
-.footer__contact {
- margin-bottom: 5px;
-}
-
-/******* Card Styles *******/
-.card {
- background-color: var(--second-bg-color);
-}
-
 
 a {
   color: #92badd;
@@ -55,6 +39,39 @@ h2 {
   display:inline-block;
   margin: 40px 8px 10px 8px;
   color: #cccccc;
+}
+
+h2.inactive {
+  color: #cccccc;
+}
+
+h2.active {
+  color: #0d0d0d;
+  border-bottom: 2px solid #5fbae9;
+}
+/******* Navigation Styles *******/
+nav {
+ background-color: var(--second-bg-color);
+}
+
+.dropdown-menu {
+ background-color: var(--second-bg-color);
+}
+/******* Card Styles *******/
+.card {
+ background-color: var(--card-bg-color);
+}
+/******* Footer Styles *******/
+footer {
+  background-color: var(--second-bg-color);
+  position: bottom;
+  margin-top: 10%;
+}
+
+.footer__contact,
+.footer_company {
+ margin-bottom: 5px;
+ font-weight: bold;
 }
 
 /* STRUCTURE */
@@ -96,17 +113,6 @@ h2 {
     background-color: #FFFFFF;
 }
 
-
-/* TABS */
-
-h2.inactive {
-  color: #cccccc;
-}
-
-h2.active {
-  color: #0d0d0d;
-  border-bottom: 2px solid #5fbae9;
-}
 
 /* Other elements */
 
@@ -304,15 +310,15 @@ input[type=email]:placeholder {
 
 /* OTHERS */
 
-*:focus {
-    outline: none;
-}
+
 
 /* Login - end */
 
 
 /* X-Small devices (portrait phones, less than 576px)
 // No media query for `xs` since this is the default in Bootstrap */
+@media (min-width: 400px) { ... }
+
 
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) { ... }
