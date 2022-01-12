@@ -13,6 +13,7 @@
 
 :root {
  --main-bg-color: #78b5d4;
+ --sm-mobile-bg-color: #F09A9D; /* Red */
  --second-bg-color: #dce8f1;
  --third-bg-color: #dcf1e5;
  --card-bg-color: #dce8f1;
@@ -312,25 +313,31 @@ input[type=email]:placeholder {
 
 
 
-/* Login - end */
-
 
 /* X-Small devices (portrait phones, less than 576px)
 // No media query for `xs` since this is the default in Bootstrap */
-@media (min-width: 400px) { ... }
+@media only screen and (max-width: 575px) {
+
+
+}
 
 
 /* Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) { ... }
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    body {
+        background-color: var(--sm-mobile-bg-color);
+    }
+
+}
 
 /* Medium devices (tablets, 768px and up)*/
-@media (min-width: 768px) { ... }
+@media only screen and (min-width: 768px) and (max-width: 991px) { ... }
 
 /* Large devices (desktops, 992px and up)*/
-@media (min-width: 992px) { ... }
+@media only screen and (min-width: 992px) and (max-width: 1px) { ... }
 
 /* X-Large devices (large desktops, 1200px and up)*/
-@media (min-width: 1200px) { ... }
+@media only screen and (min-width: 1200px) and (max-width: 767px) { ... }
 
 /* XX-Large devices (larger desktops, 1400px and up) */
-@media (min-width: 1400px) { ... }
+@media only screen and (min-width: 1400px) { ... }
