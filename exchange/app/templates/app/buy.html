@@ -42,7 +42,7 @@
 
                 <!-- Card: Buy Order - form -->
                 <div class="container" id="buy-card" >
-                    <div class="card text-white  mb-3" style="background:#CD853F">
+                    <div class="card text-white  mb-3">
                         <div class="card-action center-align flow-text white-text">
                             Purchase-BITCOIN
                         </div>
@@ -51,7 +51,7 @@
                                 <form action="." method="POST" >
                                     {% csrf_token %}
                                     {{ form.as_p }}
-                                    <input class="btn black  " type="submit" value="Submit buy order" name="buy" style="margin: 10px;"/>
+                                    <input class="btn black" type="submit" value="Submit buy order" name="buy"/>
                                 </form>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
 
 
     <!--- Order's book -->
-    <div class="card rounded shadow" style="background-color: #E7C99C">
+    <div class="card rounded shadow">
         <div class="card-body"><!--- card body -->
             <h3 class="card-title">Order book</h3>
             <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
