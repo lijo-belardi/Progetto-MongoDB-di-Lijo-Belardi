@@ -1,21 +1,16 @@
 <nav class="navbar shadow navbar-expand-lg">
   <div class="container">
 
-    {% block _navbar_brand %}
-    {% include "partials/_navbar_brand.html" %}
-    {% endblock _navbar_brand %}
+    <div class="navbar-nav">
+      <a class="navbar-brand" href="{% url 'app:homepage' %}">Djongo - exchange</a>
+      <a class="nav-item nav-link" href="{% url 'app:buy' user.id %}">Buy</a>
+      <a class="nav-item nav-link" href="{% url 'app:sell' user.id %}">Sell</a>
+    </div>
 
-    <!-- div collapse -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-      {% block _navbar_onorder_list %}
-      {% include "partials/_navbar_onorder_list.html" %}
-      {% endblock _navbar_onorder_list %}
-
-      {% block _navbar_search %}
-      {% include "partials/_navbar_search.html" %}
-      {% endblock _navbar_search %}
-
-    </div><!-- div collapse -->
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="{% url 'app:homepage' %}">Home</a>
+      <a class="nav-item nav-link" href="{% url 'user:profile' user.id %}">Profile</a>
+      <a class="nav-item nav-link" href="/logout/">Logout</a>
+    </div>
   </div>
 </nav>
