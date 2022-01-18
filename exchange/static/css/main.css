@@ -1,27 +1,24 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-/******* General Styles *******/
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/***************** General Styles *****************/
+* {margin: 0; padding: 0; box-sizing: border-box;}
 
-*:focus {
-    outline: none;
-}
+*:focus {outline: none;}
+
 
 :root {
- --main-bg-color: #78b5d4;
- --sm-mobile-bg-color: #F09A9D; /* Red */
- --second-bg-color: #dce8f1;
+ --main-bg-color: #243b55;
+ --second-bg-color: #141e30;
+ --card-bg-color: #141e30;
+ --txt-color: #c9d7e8;
+ --line-color: #03e9f4;
  --third-bg-color: #dcf1e5;
- --card-bg-color: #dce8f1;
+
 }
 
-body {
+html, body {
   font-family: "Roboto", sans-serif; /* todo vedere web typography */
-  height: 100vh;
+  height: 100%;
   background-color: var(--main-bg-color);
 }
 
@@ -42,41 +39,42 @@ h2 {
   color: #cccccc;
 }
 
-h2.inactive {
-  color: #cccccc;
+h2.inactive {color: #cccccc;}
+
+h2.active {color: #cccccc; border-bottom: 2px solid #5fbae9;}
+
+h3, p, strong, td, th, label, ul, li, .nav-link, .card-title, .card-subtitle {
+    color: var(--txt-color);
 }
 
-h2.active {
-  color: #0d0d0d;
-  border-bottom: 2px solid #5fbae9;
+label {margin-top: 20px;}
+
+.btn-outline-primary {
+ color: #5c88b9;
+ border-color: #5c88b9;
 }
-/******* Navigation Styles *******/
+
+.btn-outline-primary:hover {
+ color: var(--txt-color);
+ border-color: #5c88b9;
+
+}
+/***************** Navigation Styles *****************/
 nav {
  background-color: var(--second-bg-color);
 }
 
-.dropdown-menu {
- background-color: var(--second-bg-color);
+.navbar {
+ display: flex;
 }
-/******* Card Styles *******/
+
+.nav-link:hover {color: #5c88b9;}
+
+/***************** Card Styles *****************/
 .card {
- background-color: var(--card-bg-color);
+ background: var(--card-bg-color);
 }
-/******* Footer Styles *******/
-footer {
-  background-color: var(--second-bg-color);
-  position: bottom;
-  margin-top: 10%;
-}
-
-.footer__contact,
-.footer_company {
- margin-bottom: 5px;
- font-weight: bold;
-}
-
-/* STRUCTURE */
-
+/***************** Login Styles *****************/
 .wrapper {
   display: flex;
   align-items: center;
@@ -90,7 +88,7 @@ footer {
 #formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
-  background: #fff;
+  background: rgba(0,0,0,.5);
   padding: 30px;
   width: 90%;
   max-width: 450px;
@@ -101,32 +99,15 @@ footer {
   text-align: center;
 }
 
-#formFooter {
-  background-color: #f6f6f6;
-  border-top: 1px solid #dce8f1;
-  padding: 25px;
-  text-align: center;
-  -webkit-border-radius: 0 0 10px 10px;
-  border-radius: 0 0 10px 10px;
-}
-
 .accordion-body {
     background-color: #FFFFFF;
 }
 
-
-/* Other elements */
-
-label {
- margin-top: 20px;
-}
-
-/* FORM TYPOGRAPHY and INPUT*/
-
+/***************** FORM TYPOGRAPHY AND INPUT *****************/
 input[type=button],
 input[type=submit],
 input[type=reset] {
-  background-color: #56baed;
+  background-color: #39ace7;
   border: none;
   color: white;
   padding: 15px 80px;
@@ -148,9 +129,12 @@ input[type=reset] {
 }
 
 input[type=button]:hover,
-input[type=submit]:hover,
-input[type=reset]:hover  {
+input[type=reset]:hover {
   background-color: #39ace7;
+}
+
+input[type=submit]:hover {
+ background: var(--line-color);
 }
 
 input[type=button]:active,
@@ -168,7 +152,7 @@ input[type=email]:active {
 input[type=text],
 input[type=password],
 input[type=email] {
-  background-color: #f6f6f6;
+  background-color: #243b55;
   border: none;
   color: #0d0d0d;
   padding: 15px 32px;
@@ -178,7 +162,6 @@ input[type=email] {
   font-size: 16px;
   margin: 5px;
   width: 85%;
-  border: 2px solid #f6f6f6;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -ms-transition: all 0.5s ease-in-out;
@@ -190,9 +173,10 @@ input[type=email] {
 
 input[type=text]:focus,
 input[type=password]:focus,
- input[type=email]:focus {
-  background-color: #fff;
-  border-bottom: 2px solid #5fbae9;
+input[type=email]:focus {
+  background-color: #141e30;
+  color: white;
+  border: 2px solid #5fbae9;
 }
 
 input[type=text]:placeholder,
@@ -296,9 +280,9 @@ input[type=email]:placeholder {
   bottom: -10px;
   width: 0;
   height: 2px;
-  background-color: #56baed;
+  background: var(--line-color);
   content: "";
-  transition: width 0.2s;
+  transition: width 0.3s;
 }
 
 .underlineHover:hover {
@@ -309,26 +293,38 @@ input[type=email]:placeholder {
   width: 100%;
 }
 
-/* OTHERS */
+
+/***************** Login animation - new *****************/
+.login__button {
+ padding-top: 20px;
+}
+
+
+/***************** Footer Styles *****************/
+#footer {
+  margin-top: 17rem!important;
+  background-color: var(--second-bg-color);
+}
+
+.footer__contact,
+.footer_company {
+ margin-bottom: 5px;
+ font-weight: bold;
+}
+
+.border-bottom {
+    border-bottom: 1px solid black !important;
+}
 
 
 
 
 /* X-Small devices (portrait phones, less than 576px)
 // No media query for `xs` since this is the default in Bootstrap */
-@media only screen and (max-width: 575px) {
-
-
-}
-
+@media only screen and (max-width: 575px) { ... }
 
 /* Small devices (landscape phones, 576px and up)*/
-@media only screen and (min-width: 576px) and (max-width: 767px) {
-    body {
-        background-color: var(--sm-mobile-bg-color);
-    }
-
-}
+@media only screen and (min-width: 576px) and (max-width: 767px) { ... }
 
 /* Medium devices (tablets, 768px and up)*/
 @media only screen and (min-width: 768px) and (max-width: 991px) { ... }
