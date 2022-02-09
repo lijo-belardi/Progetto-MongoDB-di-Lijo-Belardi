@@ -2,14 +2,12 @@
 
 /***************** General Styles *****************/
 * {margin: 0; padding: 0; box-sizing: border-box;}
-
 *:focus {outline: none;}
-
 
 :root {
  --main-bg-color: #243b55;
  --second-bg-color: #141e30;
- --card-bg-color: #141e30;
+ --card-bg-color: rgba(20,30,48,0.75);
  --txt-color: #c9d7e8;
  --line-color: #03e9f4;
  --third-bg-color: #dcf1e5;
@@ -40,40 +38,28 @@ h2 {
 }
 
 h2.inactive {color: #cccccc;}
-
 h2.active {color: #cccccc; border-bottom: 2px solid #5fbae9;}
 
-h3, p, strong, td, th, label, ul, li, .nav-link, .card-title, .card-subtitle {
+h3, p, strong, td, th, label, ul, li, div, .nav-link, .card-title, .card-subtitle {
     color: var(--txt-color);
 }
 
 label {margin-top: 20px;}
 
-.btn-outline-primary {
- color: #5c88b9;
- border-color: #5c88b9;
-}
-
-.btn-outline-primary:hover {
- color: var(--txt-color);
- border-color: #5c88b9;
-
-}
+.btn-outline-primary {color: #5c88b9; border-color: #5c88b9;}
+.btn-outline-primary:hover {color: var(--txt-color); border-color: #5c88b9;}
 /***************** Navigation Styles *****************/
-nav {
- background-color: var(--second-bg-color);
-}
-
-.navbar {
- display: flex;
-}
-
+nav {background-color: var(--card-bg-color);}
+.navbar {display: flex;}
 .nav-link:hover {color: #5c88b9;}
 
 /***************** Card Styles *****************/
-.card {
- background: var(--card-bg-color);
-}
+.card {background: var(--card-bg-color);}
+
+/***************** Profile Styles *****************/
+
+
+
 /***************** Login Styles *****************/
 .wrapper {
   display: flex;
@@ -99,9 +85,7 @@ nav {
   text-align: center;
 }
 
-.accordion-body {
-    background-color: #FFFFFF;
-}
+.accordion-body {background-color: #FFFFFF;}
 
 /***************** FORM TYPOGRAPHY AND INPUT *****************/
 input[type=button],
@@ -129,13 +113,9 @@ input[type=reset] {
 }
 
 input[type=button]:hover,
-input[type=reset]:hover {
-  background-color: #39ace7;
-}
+input[type=reset]:hover {background-color: #39ace7;}
 
-input[type=submit]:hover {
- background: var(--line-color);
-}
+input[type=submit]:hover {background: var(--line-color);}
 
 input[type=button]:active,
 input[type=submit]:active,
@@ -181,14 +161,10 @@ input[type=email]:focus {
 
 input[type=text]:placeholder,
 input[type=password]:placeholder,
-input[type=email]:placeholder {
-  color: #cccccc;
-}
+input[type=email]:placeholder {color: #cccccc;}
 
 #hint_id_username,
-#hint_id_password2 {
- padding: 5px;
-}
+#hint_id_password2 {padding: 5px;}
 
 
 /* ANIMATIONS */
@@ -285,38 +261,25 @@ input[type=email]:placeholder {
   transition: width 0.3s;
 }
 
-.underlineHover:hover {
-  color: #0d0d0d;
-}
+.underlineHover:hover {color: #0d0d0d;}
 
-.underlineHover:hover:after{
-  width: 100%;
-}
+.underlineHover:hover:after {width: 100%;}
 
 
 /***************** Login animation - new *****************/
-.login__button {
- padding-top: 20px;
-}
+.login__button {padding-top: 20px;}
 
 
 /***************** Footer Styles *****************/
-#footer {
-  margin-top: 17rem!important;
+footer {
   background-color: var(--second-bg-color);
+  width: 100%;
 }
 
 .footer__contact,
-.footer_company {
- margin-bottom: 5px;
- font-weight: bold;
-}
+.footer__company {margin-bottom: 5px; font-weight: bold;}
 
-.border-bottom {
-    border-bottom: 1px solid black !important;
-}
-
-
+.border-bottom {border-bottom: 1px solid black !important;}
 
 
 /* X-Small devices (portrait phones, less than 576px)
