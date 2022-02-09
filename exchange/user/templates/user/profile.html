@@ -1,20 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container"><br><!-- main container -->
-    <!-- Personal information - first card -->
-    {% block _profile_personal_information %}
-    {% include "user/partials/_profile_personal_information.html" %}
-    {% endblock _profile_personal_information %}
-
-    <br><br>
-
-    <!-- Other information - second card -->
-    {% block _profile_other_information %}
-    {% include "user/partials/_profile_other_information.html" %}
-    {% endblock _profile_other_information %}
-
-
-</div><!-- main container -->
+<div class="container"><!-- first container -->
+    <div class="row gx-5 mt-3">
+        <div class="col">
+            <div class="p-3 card rounded shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Personal information</h5>
+                    <div class="card-text border-top">
+                        <p class="mt-2">Username: <strong>{{ user_profile.user.username }}</strong></p>
+                        <p>Email: <strong>{{ user_profile.user.email }}</strong></p>
+                        <p>Last login: <strong>{{ user_profile.user.last_login }}</strong></p>
+                        <p>Last IP: <strong>{{ user_profile.ip_address }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="p-3 card rounded shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Action</h5>
+                    <div class="card-text border-top">
+                        <a href="{% url 'user:password-change' %}" type="button" class="btn btn-sm btn-outline-danger mt-2">Change password</a>
+                        <br>
+                        {% if user.is_superuser %}
+                        <a class="btn btn-sm btn-outline-primary mt-2" href="http://127.0.0.1:8000/admin/">Djongo admin's site</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- first container -->
 
 {% endblock %}
