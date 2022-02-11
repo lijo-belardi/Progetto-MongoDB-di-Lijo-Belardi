@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 # From this app
-from .models import Profile, Wallet, OrderToBuy, OrderToSell
+from .models import Profile, Wallet, Order
 from .forms import OrderForm
 from .market import Market
 # Other apps import
@@ -15,94 +15,88 @@ from .market import Market
 def homepage_view(request):
     data = Market()
     currency = data.updated_data()
-    buy_orders_list = OrderToBuy.objects.filter(status='open').order_by('created')
-    return render(request, "homepage.html", {"currency": currency, "buy_orders_list": buy_orders_list})
+    return render(request, "homepage.html", {"currency": currency})
 
 
 @login_required()
-def sell_order_view(request, id):
+def order_view(request, id):
     data = Market()
     currency = data.updated_data()
-    buy_orders_list = OrderToBuy.objects.filter(status='open').order_by('created')
-    sell_orders_list = OrderToSell.objects.filter(status='open').order_by('created')
+    purchase_orders_list = Order.objects.filter(status='open', type='buy').order_by('-price')
+    sale_orders_list = Order.objects.filter(status='open', type='sell').order_by('-price')
     wallet = get_object_or_404(Wallet, user_id=id)
-
+    user_profile = get_object_or_404(Profile, user_id=id)
+    # Orders lists
     if request.method == 'POST':
-        form = OrderForm(request.POST or None)
-        if form.is_valid():
-            status = 'open'
-            price = form.cleaned_data.get('price')
-            quantity = form.cleaned_data.get('quantity')
-            # Checking wallet availability.
-            profile_wallet = Wallet.objects.get(user=request.user)
-            if price < 0.0:
-                messages.error(request, 'Cannot put a price lower than 0')
-                return redirect('app:sell')
-            if quantity < 0.0:
-                messages.error(request, 'Cannot put a quantity lower than 0')
-                return redirect('app:sell')
-            if profile_wallet.btc_wallet >= quantity:
-                profile_wallet.btc_wallet -= quantity
-                profile_wallet.save()
-                # Order creation
-                new_sell_order = OrderToSell.objects.create(user=request.user,
-                                                            status=status,
-                                                            price=price,
-                                                            quantity=quantity,
-                                                            modified=timezone.now())
-                messages.success(request,
-                                 f'Your sales order of {new_sell_order.quantity} BTC for {new_sell_order.price}  is successfully added to the Order Book! || Status:{new_sell_order.status}')
-        else:
-            messages.error(request, 'Order can not have negative values!')
+        if request.POST.get('buy'):
 
-    return render(request, "app/sell.html", {"wallet": wallet,
-                                             "currency": currency,
-                                             "sell_orders_list": sell_orders_list,
-                                             "buy_orders_list": buy_orders_list})
+            # Buy Order
+            form = OrderForm(request.POST or None)
+            if form.is_valid():
+                status = 'open'
+                type = 'buy'
+                price = form.cleaned_data.get('price')
+                quantity = form.cleaned_data.get('quantity')
+                profile_wallet = Wallet.objects.get(user=request.user)
 
+                if price <= 0.0:
+                    messages.error(request, 'Cannot put a price lower than 0')
+                    return redirect('app:order')
+                if quantity <= 0.0:
+                    messages.error(request, 'Cannot put a quantity lower than 0')
+                    return redirect('app:order')
 
-@login_required()
-def buy_order_view(request, id):
-    wallet = get_object_or_404(Wallet, user_id=id)
-    buy_orders_list = OrderToBuy.objects.filter(status='open').order_by('created')
-    sell_orders_list = OrderToSell.objects.filter(status='open').order_by('created')
+                if profile_wallet.usd_wallet >= price:
+                    # Order creation
+                    new_buy_order = Order.objects.create(profile=request.user,
+                                                         status=status,
+                                                         type=type,
+                                                         price=price,
+                                                         quantity=quantity,
+                                                         modified=timezone.now())
+                    messages.success(request,
+                                     f'Your  purchase order of {new_buy_order.quantity} BTC for {new_buy_order.price}, {new_buy_order._id}  is successfully added to the Order Book! || Status: {new_buy_order.status}')
+            else:
+                messages.error(request, 'Order can not have negative values!')
 
-    if request.method == 'POST':
+        elif request.POST.get('sell'):
 
-        print(f'request.POST results:\n{request.POST}')
-        # Buy Order
-        form = OrderForm(request.POST or None)
-        if form.is_valid():
-            status = 'open'
-            price = form.cleaned_data.get('price')
-            quantity = form.cleaned_data.get('quantity')
+            # sell order
+            form = OrderForm(request.POST or None)
+            if form.is_valid():
+                type = 'sell'
+                status = 'open'
+                price = form.cleaned_data.get('price')
+                quantity = form.cleaned_data.get('quantity')
+                profile_wallet = Wallet.objects.get(user=request.user)
 
-            profile_wallet = Wallet.objects.get(user=request.user)
+                if price <= 0.0:
+                    messages.error(request, 'Cannot put a price lower than 0')
+                    return redirect('app:order')
+                if quantity <= 0.0:
+                    messages.error(request, 'Cannot put a quantity lower than 0')
+                    return redirect('app:order')
 
-            if price < 0.0:
-                messages.error(request, 'Cannot put a price lower than 0')
-                return redirect('app:buy')
-            if quantity < 0.0:
-                messages.error(request, 'Cannot put a quantity lower than 0')
-                return redirect('app:buy')
-            if profile_wallet.usd_wallet >= price and profile_wallet.btc_wallet >= quantity:
-                profile_wallet.usd_wallet -= price
-                profile_wallet.save()
-                # Order creation
-                new_buy_order = OrderToBuy.objects.create(user=request.user,
+                if profile_wallet.btc_wallet >= quantity:
+                    profile_wallet.btc_wallet -= quantity
+                    profile_wallet.save()
+                    # Order creation
+                    new_sell_order = Order.objects.create(profile=request.user,
+                                                          type=type,
                                                           status=status,
                                                           price=price,
                                                           quantity=quantity,
                                                           modified=timezone.now())
-
-                messages.success(request,
-                                 f'Your  purchase order of {new_buy_order.quantity} BTC for {new_buy_order.price}  is successfully added to the Order Book! || Status: {new_buy_order.status}')
-        else:
-            messages.error(request, 'Order can not have negative values!')
-
+                    messages.success(request,
+                                     f'Your sales order of {new_sell_order.quantity} BTC for {new_sell_order.price}, {new_sell_order._id} is successfully added to the Order Book! || Status:{new_sell_order.status}')
+                else:
+                    messages.error(request, 'Your balance is not enough.')
+            else:
+                messages.error(request, 'Order can not have negative values!')
     form = OrderForm()
-    return render(request, "app/buy.html", {"wallet": wallet,
-                                            "form": form,
-                                            "buy_orders_list": buy_orders_list,
-                                            "sell_orders_list": sell_orders_list})
-
+    return render(request, "order.html", {"currency": currency,
+                                          "wallet": wallet,
+                                          "user_profile": user_profile,
+                                          "form": form,
+                                          "purchase_orders_list": purchase_orders_list,
+                                          "sale_orders_list": sale_orders_list})

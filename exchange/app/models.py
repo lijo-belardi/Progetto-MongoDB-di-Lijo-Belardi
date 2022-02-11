@@ -4,7 +4,7 @@ from djongo.models.fields import ObjectIdField, Field
 from django.contrib.auth.models import User
 from django.conf import settings
 
-
+# TODO oggetto "profitto"
 class Profile(models.Model):
     _id = ObjectIdField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -27,25 +27,15 @@ class Wallet(models.Model):
         return text
 
 
-class OrderToBuy(models.Model):
+class Order(models.Model):
     _id = ObjectIdField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=5)
-    price = models.FloatField(default=0)
-    quantity = models.FloatField(default=0)
+    type = models.CharField(max_length=4)
+    price = models.FloatField()
+    quantity = models.FloatField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    publish_on = models.DateTimeField(auto_now_add=True)
 
-
-class OrderToSell(models.Model):
-    _id = ObjectIdField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.CharField(max_length=5)
-    price = models.FloatField(default=0)
-    quantity = models.FloatField(default=0)
-    publish_on = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
-
-
+    def get_id(self):
+        return self._id

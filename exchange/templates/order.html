@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container"><!-- main container -->
+    <div class="row gx-5 mt-3"><!-- first row -->
+        <div class="col">
+            <div class="p-3 card rounded shadow">
+                <div class="card-body">
+                    <!-- TODO migliorare form con CSS -->
+                    <form action="." method="POST" class="OrderForm">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input class="btn black" type="submit" value="Submit buy order" name="buy" style="margin: 10px;"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="p-3 card rounded shadow">
+                <div class="card-body">
+                    <!-- TODO migliorare form con CSS -->
+                    <form action="." method="POST" class="OrderForm">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input class="btn black" type="submit" value="Submit sell order" name="sell" style="margin: 10px;"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!-- first row -->
+
+    <br>
+    <div class="border-bottom"></div>
+
+
+    <div class="row gx-5 mt-3"><!-- second row -->
+        <!-- purchase table -->
+        <div class="col">
+            <div class="p-3 card rounded shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Purchase table</h5>
+                    <div class="card-text border-top">
+                        <table class="table"><!-- table -->
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Quantity (BTC)</th>
+                                <th>Value (USD)</th>
+                                <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in purchase_orders_list %}
+                            <tr>
+                                <td>{{order.profile}}</td>
+                                <td>{{ order.quantity|floatformat:2}} BTC</td>
+                                <td>{{ order.price|floatformat:2}}$</td>
+                                <td>{{order.created}}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table><!-- table -->
+                    </div>
+                </div>
+            </div>
+        </div><!-- purchase table -->
+
+        <!-- sale table -->
+        <div class="col">
+            <div class="p-3 card rounded shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Sale table</h5>
+                    <div class="card-text border-top">
+                        <!-- TODO inserire tabella -->
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Quantity (BTC)</th>
+                                <th>Value (USD)</th>
+                                <th>Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in sale_orders_list %}
+                            <tr>
+                                <td>{{order.profile}}</td>
+                                <td>{{ order.quantity|floatformat:2}} BTC</td>
+                                <td>{{ order.price|floatformat:2}}$</td>
+                                <td>{{order.created}}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table><!-- table -->
+                    </div>
+                </div>
+            </div>
+        </div><!-- sale table -->
+    </div><!-- second row -->
+</div><!-- main container -->
+{% endblock %}

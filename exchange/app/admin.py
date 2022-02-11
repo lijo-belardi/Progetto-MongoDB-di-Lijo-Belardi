@@ -1,19 +1,13 @@
 from django.contrib import admin
-from .models import Profile, Wallet, OrderToBuy, OrderToSell
+from .models import Profile, Wallet, Order
 
 
 class AdminProfile(admin.ModelAdmin):
     list_display = ["user", "_id", "ip_address", "last_login"]
 
 
-class AdminOrderToBuy(admin.ModelAdmin):
-    list_display = ["user", "status", "price", "quantity"]
-    sortable_by = ["price"]
-
-
-class AdminOrderToSell(admin.ModelAdmin):
-    list_display = ["user", "status", "price", "quantity"]
-    sortable_by = ["price"]
+class AdminOrder(admin.ModelAdmin):
+    list_display = ["_id", "profile", "created", "status", "type"]
 
 
 class AdminWallet(admin.ModelAdmin):
@@ -26,6 +20,5 @@ class AdminWallet(admin.ModelAdmin):
 
 
 admin.site.register(Profile, AdminProfile)
-admin.site.register(OrderToBuy, AdminOrderToBuy)
-admin.site.register(OrderToSell, AdminOrderToSell)
 admin.site.register(Wallet, AdminWallet)
+admin.site.register(Order, AdminOrder)

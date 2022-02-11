@@ -2,8 +2,8 @@ from django import forms
 
 
 class OrderForm(forms.Form):
-    price = forms.FloatField(widget=forms.TextInput(attrs={'class': 'dark-text'}))
-    quantity = forms.FloatField(widget=forms.TextInput(attrs={'class': 'dark-text'}))
+    price = forms.FloatField(label='Price ($)', widget=forms.TextInput(attrs={'class': 'dark-text'}))
+    quantity = forms.FloatField(label='Quantity', widget=forms.TextInput(attrs={'class': 'dark-text'}))
 
     def clean(self):
         cleaned_data = super().clean()

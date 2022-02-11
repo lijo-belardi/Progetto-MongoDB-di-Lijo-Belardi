@@ -31,6 +31,35 @@
             </div>
         </div>
     </div>
+
+    <br>
+    <div class="border-bottom"></div>
+
+
+    <div class="row gx-5 mt-3">
+        <div class="col">
+            <div class="p-3 card rounded shadow">
+                <div class="card-body">
+                    <h5 class="card-title">BTC wallet</h5>
+                    <div class="card-text border-top">
+                        <p class="mt-2">Available: <strong>{{ wallet.btc_wallet }} BTC</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="p-3 card rounded shadow">
+                <div class="card-body">
+                    <h5 class="card-title">FIAT wallet</h5>
+                    <div class="card-text border-top">
+                        <p class="mt-2">Available: <strong>{{ wallet.usd_wallet|floatformat:4 }} $</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div><!-- first container -->
 
 {% endblock %}
