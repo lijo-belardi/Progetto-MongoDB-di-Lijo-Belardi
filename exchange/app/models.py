@@ -4,7 +4,6 @@ from djongo.models.fields import ObjectIdField, Field
 from django.contrib.auth.models import User
 from django.conf import settings
 
-# TODO oggetto "profitto"
 class Profile(models.Model):
     _id = ObjectIdField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -12,6 +11,7 @@ class Profile(models.Model):
     subprofile = models.Field(default={})
     ip_address = models.CharField(max_length=150, blank=True, null=True)
     last_login = models.DateTimeField(default=timezone.now)
+    # TODO oggetto "profitto"
 
 
 class Wallet(models.Model):
