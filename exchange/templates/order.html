@@ -30,8 +30,18 @@
         </div>
     </div><!-- first row -->
 
-    <br>
+    <br><!-- TODO controllare che il messaggio funzioni -->
     <div class="border-bottom"></div>
+    <br>
+    {% if messages %}
+    {% for message in messages %}
+    <strong>{{ message }}</strong>
+    {% endfor %}
+    {% endif %}
+    <br>
+    <div class="border-bottom">
+    </div>
+
 
 
     <div class="row gx-5 mt-3"><!-- second row -->
@@ -98,5 +108,8 @@
             </div>
         </div><!-- sale table -->
     </div><!-- second row -->
+
+
+
 </div><!-- main container -->
 {% endblock %}
