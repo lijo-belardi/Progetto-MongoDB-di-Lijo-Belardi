@@ -59,17 +59,21 @@ def order_view(request, id):
                                                          price=price,
                                                          quantity=quantity,
                                                          modified=timezone.now())
-                    messages.success(request, f'Your  purchase order of {new_buy_order.quantity} BTC for {new_buy_order.price}, {new_buy_order._id}  is successfully added to the Order Book! || Status: {new_buy_order.status}')
+                    messages.success(request, f'Your  purchase order (id: {new_buy_order._id}) of {new_buy_order.quantity} BTC for {new_buy_order.price} $ is successfully added to the Order Book!\n || Status: {new_buy_order.status}.')
 
                     # Order matching
                     if sale_orders_list.exists():
                         # Checking evey element of "sale_orders_list"
                         for sale_order in sale_orders_list:
                             if sale_order.price <= new_buy_order.price:
-                                messages.info(request, f'Search for the best sales order')
-                                messages.info(request, f'Partner found! sale order id:{sale_order._id}')
-                                messages.success(request, f'He wants to sell {sale_order.quantity} BTC for {sale_order.price} $')
-                                messages.info(request, 'Start of the bitcoin exchange')
+                                messages.info(request,
+                                              f'Search for the best sales order')
+                                messages.info(request,
+                                              f'Partner found! sale order id:{sale_order._id}')
+                                messages.success(request,
+                                                 f'He wants to sell {sale_order.quantity} BTC for {sale_order.price} $')
+                                messages.info(request,
+                                              f'Start of the bitcoin exchange')
 
                                 # First case
                                 if sale_order.quantity == new_buy_order.quantity:
@@ -85,8 +89,10 @@ def order_view(request, id):
                                     profile_wallet.usd_wallet -= (sale_order.price * sale_order.quantity)
                                     profile_wallet.save()
 
-                                    messages.success(request, f'Your Buy order id: {new_buy_order._id}. || Status: {new_buy_order.status}.')
-                                    messages.success(request, f'|| BTC before exchange: {actual_btc}; || BTC after exchange: {profile_wallet.btc_wallet};')
+                                    messages.success(request,
+                                                     f'Your Buy order id: {new_buy_order._id}. || Status: {new_buy_order.status}.')
+                                    messages.success(request,
+                                                     f'\n|| BTC before exchange: {actual_btc}; || BTC after exchange: {profile_wallet.btc_wallet};')
 
                                     # Sell order can close.
                                     sell_order = Order.objects.get(_id=sale_order._id)
@@ -97,10 +103,13 @@ def order_view(request, id):
                                     sale_order.status = 'close'
                                     sale_order.save()
 
-                                    messages.success(request, f'Sell order id: {sale_order._id}. || Status: {sale_order.status}.')
-                                    messages.success(request, f'\nThe User who Sold has Received  successfully {sale_order.price}$ *{sale_order.quantity} .')
-                                    messages.info(request, f'\nThe bitcoin exchange has been totally executed! Congratulations!')
-                                    return redirect('app/exchange/order/<int:id>/')
+                                    messages.success(request,
+                                                     f'\nSell order id: {sale_order._id}. || Status: {sale_order.status}.')
+                                    messages.success(request,
+                                                     f'\nThe User who Sold has Received  successfully {sale_order.price}$ *{sale_order.quantity} .')
+                                    messages.info(request,
+                                                  f'\nThe bitcoin exchange has been totally executed! Congratulations!')
+                                    return redirect('app:order')
 
                                 # Second case
                                 elif sale_order.quantity > new_buy_order.quantity:
@@ -115,20 +124,25 @@ def order_view(request, id):
                                     profile_wallet.usd_wallet -= (new_buy_order.price * new_buy_order.quantity)
                                     profile_wallet.save()
 
-                                    messages.success(request, f'Your Buy order id: {new_buy_order._id}. || Status: {new_buy_order.status}.')
-                                    messages.success(request, f'|| BTC before exchange: {actual_btc}; || BTC after exchange: {profile_wallet.btc_amount};')
+                                    messages.success(request,
+                                                     f'Your Buy order id: {new_buy_order._id}. || Status: {new_buy_order.status}.')
+                                    messages.success(request,
+                                                     f'|| BTC before exchange: {actual_btc}; || BTC after exchange: {profile_wallet.btc_wallet};')
 
                                     sale_order.quantity -= new_buy_order.quantity
                                     sale_order.save()
 
                                     sell_order = Order.objects.get(_id=sale_order._id)
-                                    profile_s = Profile.objects.get(user=sell_order.profile.user)
-                                    profile_s.usd_wallet += (new_buy_order.price * new_buy_order.quantity)
-                                    profile_s.save()
+                                    profile_seller = Wallet.objects.get(user=sell_order.profile)
+                                    profile_seller.usd_wallet += (new_buy_order.price * new_buy_order.quantity)
+                                    profile_seller.save()
 
-                                    messages.success(request, f'Sell order id: {sale_order._id}. || Status: {sale_order.status}.')
-                                    messages.success(request, f'\nThe User who Sold has Received  successfully {new_buy_order.price}$ *{new_buy_order.quantity}.')
-                                    messages.info(request, f'\nThe bitcoin exchange has been totally executed! Congratulations!')
+                                    messages.success(request,
+                                                     f'Sell order id: {sale_order._id}. || Status: {sale_order.status}.')
+                                    messages.success(request,
+                                                     f'\nThe User who Sold has Received  successfully {new_buy_order.price}$ *{new_buy_order.quantity}.')
+                                    messages.info(request,
+                                                  f'\nThe bitcoin exchange has been totally executed! Congratulations!')
                                     return redirect('app:order')
 
                                 # Third case
@@ -142,20 +156,25 @@ def order_view(request, id):
                                     profile_wallet.usd_wallet -= (sale_order.price * sale_order.quantity)
                                     profile_wallet.save()
 
-                                    messages.success(request, f'\nYour Buy order id: {new_buy_order._id}. || Status: {new_buy_order.status}.')
-                                    messages.success(request, f'\n|| BTC before exchange: {actual_btc}; || BTC after exchange: {profile_wallet.btc_amount};')
+                                    messages.success(request,
+                                                     f'\nYour Buy order id: {new_buy_order._id}. || Status: {new_buy_order.status}.')
+                                    messages.success(request,
+                                                     f'\n|| BTC before exchange: {actual_btc}; || BTC after exchange: {profile_wallet.btc_wallet};')
 
                                     sale_order.status = 'close'
                                     sale_order.save()
 
                                     sell_order = Order.objects.get(_id=sale_order._id)
-                                    profile_s = Profile.objects.get(user=sell_order.profile.user)
-                                    profile_s.usd_wallet += (sale_order.price * sale_order.quantity)
-                                    profile_s.save()
+                                    profile_seller = Wallet.objects.get(user=sell_order.profile)
+                                    profile_seller.usd_wallet += (sale_order.price * sale_order.quantity)
+                                    profile_seller.save()
 
-                                    messages.success(request, f'Sell order id: {sale_order._id}. || Status: {sale_order.status}.')
-                                    messages.success(request, f'\nThe User who Sold has Received  successfully {sale_order.price} $ * {sale_order.quantity}.')
-                                    messages.info(request, f'\nThe bitcoin exchange has been totally executed! Congratulations!')
+                                    messages.success(request,
+                                                     f'Sell order id: {sale_order._id}. || Status: {sale_order.status}.')
+                                    messages.success(request,
+                                                     f'\nThe User who Sold has Received  successfully {sale_order.price} $ * {sale_order.quantity}.')
+                                    messages.info(request,
+                                                  f'\nThe bitcoin exchange has been totally executed! Congratulations!')
                                     return redirect('app:order')
 
                                 # Fourth case
@@ -163,7 +182,7 @@ def order_view(request, id):
                                     return redirect('app:order')
                             return redirect('app:order')
                     else:
-                        return redirect('app/exchange/order/<int:id>/')
+                        return redirect('app:order')
                 else:
                     messages.error(request, 'Your balance is not enough.')
             else:
@@ -197,17 +216,21 @@ def order_view(request, id):
                                                           price=price,
                                                           quantity=quantity,
                                                           modified=timezone.now())
-                    messages.success(request, f'Your sales order of {new_sell_order.quantity} BTC for {new_sell_order.price}, {new_sell_order._id} is successfully added to the Order Book! || Status:{new_sell_order.status}')
+                    messages.success(request, f'Your sales order (id: {new_sell_order._id}) of {new_sell_order.quantity} BTC for {new_sell_order.price} is successfully added to the Order Book!\n || Status:{new_sell_order.status}.')
 
                     # Order matching
                     if purchase_orders_list.exists():
                         # Checking evey element of "purchase_orders_list"
                         for buy_open_order in purchase_orders_list:
                             if buy_open_order.price >= new_sell_order.price:
-                                messages.info(request, f'\nSearch for the best purchase order')
-                                messages.info(request, f'\nPartner found! purchase order id:{buy_open_order._id}')
-                                messages.success(request, f'\nHe wants to buy {buy_open_order.quantity} BTC for {buy_open_order.price} $')
-                                messages.info(request, '\nStart of the bitcoin exchange')
+                                messages.info(request,
+                                              f'\nSearch for the best purchase order')
+                                messages.info(request,
+                                              f'\nPartner found! purchase order id:{buy_open_order._id}')
+                                messages.success(request,
+                                                 f'\nHe wants to buy {buy_open_order.quantity} BTC for {buy_open_order.price} $')
+                                messages.info(request,
+                                              '\nStart of the bitcoin exchange')
 
                                 # First case
                                 if buy_open_order.quantity == new_sell_order.quantity:
@@ -221,20 +244,25 @@ def order_view(request, id):
                                     profile_wallet.usd_wallet += (new_sell_order.price * new_sell_order.quantity)
                                     profile_wallet.save()
 
-                                    messages.success(request, f'\nSell order id: {new_sell_order._id}. || Status: {new_sell_order.status}.')
-                                    messages.success(request, f'\n|| USD before exchange: {actual_usd}; || USD after exchange: {profile_wallet.usd_amount};')
+                                    messages.success(request,
+                                                     f'\nSell order id: {new_sell_order._id}. || Status: {new_sell_order.status}.')
+                                    messages.success(request,
+                                                     f'\n|| USD before exchange: {actual_usd}; || USD after exchange: {profile_wallet.usd_wallet};')
 
-                                    profile_b = Profile.objects.get(user=buy_open_order.profile.user)
-                                    profile_b.btc_wallet += new_sell_order.quantity
-                                    profile_b.usd_wallet -= (buy_open_order.price * buy_open_order.quantity)
-                                    profile_b.save()
+                                    profile_buyer = Wallet.objects.get(user=buy_open_order.profile)
+                                    profile_buyer.btc_wallet += new_sell_order.quantity
+                                    profile_buyer.usd_wallet -= (buy_open_order.price * buy_open_order.quantity)
+                                    profile_buyer.save()
 
                                     buy_open_order.status = 'close'
                                     buy_open_order.save()
 
-                                    messages.success(request, f'\nBuy order id: {buy_open_order._id}. || Status: {buy_open_order.status}.')
-                                    messages.success(request, f'\nThe User who purchased has Received  successfully {new_sell_order.quantity} BTC.')
-                                    messages.info(request, f'\nThe bitcoin exchange has been totally executed! Congratulations!')
+                                    messages.success(request,
+                                                     f'\nBuy order id: {buy_open_order._id}. || Status: {buy_open_order.status}.')
+                                    messages.success(request,
+                                                     f'\nThe User who purchased has Received  successfully {new_sell_order.quantity} BTC.')
+                                    messages.info(request,
+                                                  f'\nThe bitcoin exchange has been totally executed! Congratulations!')
                                     return redirect('app:order')
 
                                 # Second case
@@ -248,8 +276,10 @@ def order_view(request, id):
                                     profile_wallet.usd_wallet += (new_sell_order.price * new_sell_order.quantity)
                                     profile_wallet.save()
 
-                                    messages.success(request, f'\nSell order id: {new_sell_order._id}. || Status: {new_sell_order.status}.')
-                                    messages.success(request, f'\n|| USD before exchange: {actual_usd}; || USD after exchange: {profile_wallet.usd_amount};')
+                                    messages.success(request,
+                                                     f'\nSell order id: {new_sell_order._id}. || Status: {new_sell_order.status}.')
+                                    messages.success(request,
+                                                     f'\n|| USD before exchange: {actual_usd}; || USD after exchange: {profile_wallet.usd_wallet};')
 
                                     buy_open_order.quantity -= new_sell_order.quantity
                                     buy_open_order.save()
@@ -258,14 +288,17 @@ def order_view(request, id):
                                         buy_open_order.status = "close"
                                         buy_open_order.save()
 
-                                    profile_b = Profile.objects.get(user=buy_open_order.profile.user)
-                                    profile_b.btc_wallet += new_sell_order.quantity
-                                    profile_b.usd_wallet -= (buy_open_order.price * new_sell_order.quantity)
-                                    profile_b.save()
+                                    profile_buyer = Wallet.objects.get(user=buy_open_order.profile)
+                                    profile_buyer.btc_wallet += new_sell_order.quantity
+                                    profile_buyer.usd_wallet -= (buy_open_order.price * new_sell_order.quantity)
+                                    profile_buyer.save()
 
-                                    messages.success(request, f'Buy order id: {buy_open_order._id}. || Status: {buy_open_order.status}.')
-                                    messages.success(request, f'\nThe User who purchased has Received  successfully {new_sell_order.quantity} BTC.')
-                                    messages.info(request, f'\nThe bitcoin exchange has been totally executed! Congratulations!')
+                                    messages.success(request,
+                                                     f'Buy order id: {buy_open_order._id}. || Status: {buy_open_order.status}.')
+                                    messages.success(request,
+                                                     f'\nThe User who purchased has Received  successfully {new_sell_order.quantity} BTC.')
+                                    messages.info(request,
+                                                  f'\nThe bitcoin exchange has been totally executed! Congratulations!')
                                     return redirect('app:order')
 
                                 # Third case
@@ -281,19 +314,24 @@ def order_view(request, id):
                                     profile_wallet.usd_wallet += (buy_open_order.price * buy_open_order.quantity)
                                     profile_wallet.save()
 
-                                    messages.success(request, f'Sell order id: {new_sell_order._id}. || Status: {new_sell_order.status}.')
-                                    messages.success(request, f'\n|| USD before exchange: {actual_usd}; || USD after exchange: {profile_wallet.usd_amount};')
+                                    messages.success(request,
+                                                     f'Sell order id: {new_sell_order._id}. || Status: {new_sell_order.status}.')
+                                    messages.success(request,
+                                                     f'\n|| USD before exchange: {actual_usd}; || USD after exchange: {profile_wallet.usd_wallet};')
 
-                                    profile_b = Profile.objects.get(user=buy_open_order.profile.user)
-                                    profile_b.btc_wallet += buy_open_order.quantity
-                                    profile_b.usd_wallet -= (buy_open_order.price * buy_open_order.quantity)
-                                    profile_b.save()
+                                    profile_buyer = Wallet.objects.get(user=buy_open_order.profile)
+                                    profile_buyer.btc_wallet += buy_open_order.quantity
+                                    profile_buyer.usd_wallet -= (buy_open_order.price * buy_open_order.quantity)
+                                    profile_buyer.save()
 
                                     buy_open_order.status = 'close'
                                     buy_open_order.save()
-                                    messages.success(request, f'Buy order id: {buy_open_order._id}. || Status: {buy_open_order.status}.')
-                                    messages.success(request, f'\nThe User who purchased has Received  successfully {buy_open_order.quantity} BTC.')
-                                    messages.info(request, f'\nThe bitcoin exchange has been totally executed! Congratulations!')
+                                    messages.success(request,
+                                                     f'Buy order id: {buy_open_order._id}. || Status: {buy_open_order.status}.')
+                                    messages.success(request,
+                                                     f'\nThe User who purchased has Received  successfully {buy_open_order.quantity} BTC.')
+                                    messages.info(request,
+                                                  f'\nThe bitcoin exchange has been totally executed! Congratulations!')
                                     return redirect('app:order')
 
                                 # Fourth case
